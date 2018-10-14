@@ -5,5 +5,7 @@
   "main": "index.js",
   "repository": "git@github.com:grazik/ZBD-boardGames.git",
   "author": "m_graziowski & Stanislaw Szataniak",
-  "license": "none"
+  "license": "ISC",
+  "devDependencies": {},
+  "dependencies": {}
 }
