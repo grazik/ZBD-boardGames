@@ -70,6 +70,16 @@ In Configuration File select path to .eslintrc, it should be in as-home director
 
 We use airbnb rules which are extended by:
 
+func-names -> never
+eol-last -> never
+indent -> 4
+linebreak-style -> windows
+one-var -> always
+import/no-unresolved -> off
+import/extensions -> .js
+max-len -> off
+no param-reassing -> error
+                  -> props: false
 
 
 ## Save Actions
