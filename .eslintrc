@@ -1,0 +1,40 @@
+{
+    "extends": "airbnb-base",
+    "rules": {
+        "func-names": [
+            "error",
+            "never"
+        ],
+        "eol-last": [
+            "error",
+            "never"
+        ],
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "one-var": [
+            "error",
+            "always"
+        ],
+        "import/no-unresolved": [
+            "off"
+        ],
+        "import/extensions": [
+            ".js"
+        ],
+        "max-len": [
+            "off"
+        ],
+        "no-param-reassign": [
+            "error",
+            {
+                "props": false
+            }
+        ]
+    }
+}
