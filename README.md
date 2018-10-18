@@ -70,7 +70,7 @@ In Configuration File select path to .eslintrc, it should be in as-home director
 
 We use airbnb rules which are extended by:
 
-[TODO]
+
 
 ## Save Actions
 
@@ -96,5 +96,33 @@ Check 'Reformat file' box in Formatting actions section.
 
 
 ## Structure
+
+```
+ZBD-boardGames
+|─── build-utilities - includes files needed to build
+|
+|─── src
+|    |
+|    |─── client - include files for client side
+|    |
+|    |─── server - include files for server side
+|    |    |
+|    |    |─── api 
+|    |    |   |
+|    |    |   |─── modules - include modules for server 
+|    |    |   |
+|    |    |   |─── resources - routers etc. for server
+|    |    |
+|    |    |─── config - includes config files for server
+|
+|─── scripts - custom scripts
+|
+|─── .editorconfig - configuration file for editorconfig plugin
+|─── .eslintrc - configuration file for eslint
+|─── .gitignore
+|─── package.json
+|─── README.md
+|─── yarn.lock
+```
 
 
