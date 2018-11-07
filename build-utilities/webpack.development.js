@@ -5,24 +5,47 @@ const StartServerPlugin = require('start-server-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
-console.log(path.resolve(__dirname, '../src/client'));
-
 const frontend = {
-    mode: 'development',
+    entry: [
+        path.resolve(__dirname, '../src/client/index.js')
+    ],
     watch: true,
     devServer: {
         open: true,
         proxy: {
             '/api': 'http://localhost:3000'
-        }
+        },
+        inline: true,
     },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    "css-loader",
+                ]
+            },
+            {
+                test: /\.html$/,
+                use: 'html-loader',
+            }
+        ],
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            PRODUCTION: 'false',
+        })
+    ]
 };
 
 const backend = {
-    mode: 'development',
-    entry: ['webpack/hot/poll?1000', path.resolve(__dirname, '../src/server/index.js')],
+    entry: [
+        'webpack/hot/poll?1000',
+        path.resolve(__dirname, '../src/server/index.js')
+    ],
     watch: true,
-    externals: [nodeExternals({whitelist: ['webpack/hot/poll?1000']})],
+    externals: [nodeExternals({ whitelist: ['webpack/hot/poll?1000'] })],
     plugins: [
         new StartServerPlugin('server.js'),
         new webpack.NamedModulesPlugin(),

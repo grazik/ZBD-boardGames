@@ -1,8 +1,10 @@
 /* eslint-disable */
 
 const path = require('path');
-const modeConfig = env => require(`./build-utilities/webpack.${env.mode}.js`)(env);
 const webpackMerge = require("webpack-merge");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const loadPresets = require('./build-utilities/loadPresets');
+const modeConfig = env => require(`./build-utilities/webpack.${env.mode}`)(env);
 
 const back = {
     output: {
@@ -23,7 +25,7 @@ const back = {
                         loader: 'babel-loader',
                         options: {
                             babelrc: false,
-                            presets: [['env', {modules: false}]],
+                            presets: [['env', { modules: false }]],
                             plugins: ['transform-regenerator', 'transform-runtime']
                         }
                     }
@@ -32,8 +34,16 @@ const back = {
             }
         ]
     },
+    plugins: [
+        new CleanWebpackPlugin(path.resolve(__dirname, 'dist/server')),
+    ]
 };
 
-module.exports = ({mode} = {mode: 'production'}) => {
-    return webpackMerge(back, modeConfig({mode}).backend)
+module.exports = ({ mode = 'production', presets = [] }) => {
+    return webpackMerge(
+        back,
+        modeConfig({ mode, presets }).backend,
+        loadPresets({ mode, presets }),
+        { mode },
+    )
 };
