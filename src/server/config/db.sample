@@ -1,0 +1,6 @@
+db = {
+    host - The hostname of the database you are connecting to.
+    user - The MySQL user to authenticate as.
+    password - The password of that MySQL user.
+    database - Name of the database to use for this connection.
+}
