@@ -3,4 +3,5 @@ node_modules
 dist
 *.log
 src/server/config/*
+!src/server/config/config.js
 !src/server/config/*.sample*
