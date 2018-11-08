@@ -1,7 +1,7 @@
-import db from './db';
+import dbConfig from './db';
 
 const config = {
-    db,
+    dbConfig,
 };
 
 export default config;
