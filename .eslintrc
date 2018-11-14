@@ -36,5 +36,8 @@
                 "props": false
             }
         ]
+    },
+    "globals": {
+        "PRODUCTION": false
     }
 }
