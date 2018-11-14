@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 const path = require('path');
-const webpackMerge = require("webpack-merge");
+const webpackMerge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const loadPresets = require('./build-utilities/loadPresets');
 const modeConfig = env => require(`./build-utilities/webpack.${env.mode}`)(env);
@@ -16,6 +16,12 @@ const back = {
         __filename: true,
         __dirname: true
     },
+    resolve: {
+        alias: {
+            db: path.resolve(__dirname, './src/server/db.js'),
+            server: path.resolve(__dirname, './src/server'),
+        },
+    },
     module: {
         rules: [
             {
@@ -26,11 +32,18 @@ const back = {
                         options: {
                             babelrc: false,
                             presets: [['env', { modules: false }]],
-                            plugins: ['transform-regenerator', 'transform-runtime']
+                            plugins: ['transform-regenerator', 'transform-runtime', 'transform-object-rest-spread']
                         }
                     }
                 ],
                 exclude: /node_modules/
+            },
+            {
+                test: /\.(graphql)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'raw-loader'
+                }
             }
         ]
     },
@@ -42,8 +55,14 @@ const back = {
 module.exports = ({ mode = 'production', presets = [] }) => {
     return webpackMerge(
         back,
-        modeConfig({ mode, presets }).backend,
-        loadPresets({ mode, presets }),
+        modeConfig({
+            mode,
+            presets
+        }).backend,
+        loadPresets({
+            mode,
+            presets
+        }),
         { mode },
-    )
+    );
 };
