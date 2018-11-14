@@ -17,7 +17,7 @@ pool.on('acquire', (connection) => {
     console.log('Connection %d acquired', connection.threadId);
 });
 
-pool.on('release', function (connection) {
+pool.on('release', (connection) => {
     console.log('Connection %d released', connection.threadId);
 });
 
