@@ -23,7 +23,7 @@ const frontend = {
                 test: /\.css$/,
                 use: [
                     'style-loader',
-                    "css-loader",
+                    'css-loader',
                 ]
             },
             {
@@ -51,13 +51,15 @@ const backend = {
         new webpack.NamedModulesPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
+        new webpack.DefinePlugin({
+            PRODUCTION: 'false',
+        })
     ]
 };
 
 module.exports = (env) => {
-    console.log(env);
     return {
         frontend,
         backend,
-    }
+    };
 };
