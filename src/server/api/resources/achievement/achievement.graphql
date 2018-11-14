@@ -1,0 +1,10 @@
+type Achievement {
+    NAME: String!
+    IMAGE: String
+    CONDITION: Int!
+}
+
+extend type Query {
+    getAchievement(id: ID!): Achievement!
+    getAchievements: [Achievement]!
+}
