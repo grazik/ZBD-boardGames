@@ -32,6 +32,12 @@ const backend = {
         path.resolve(__dirname, '../src/server/index.js'),
     ],
     externals: [nodeExternals()],
+    plugins: [
+        new webpack.DefinePlugin({
+            PRODUCTION: 'true',
+        }),
+    ]
+
 
 };
 

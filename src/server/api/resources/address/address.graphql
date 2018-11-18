@@ -1,0 +1,12 @@
+type Address {
+    ADDRESS_ID: Int!
+    CITY: String!
+    STREET: String !
+    ZIP: String!
+    PHONE: String!
+}
+
+extend type Query {
+    getAddress(id: ID!): Address!
+    getAddresses: [Address]!
+}

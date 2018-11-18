@@ -1,0 +1,11 @@
+type Employee {
+    EMPLOYEE_ID: String!
+    SHOP: Shop!
+    SALARY: Float!
+    USER: User!
+}
+
+extend type Query {
+    getEmployee(id: ID!): Employee!
+    getEmployees: [Employee]!
+}

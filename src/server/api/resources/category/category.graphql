@@ -1,0 +1,9 @@
+type Category {
+    CATEGORY_ID: Int!
+    NAME: String!
+}
+
+extend type Query {
+    getCategory(id: ID!): Category!
+    getCategories: [Category]!
+}
