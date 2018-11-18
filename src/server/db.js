@@ -7,6 +7,8 @@ const { dbConfig } = config,
         user: dbConfig.user,
         password: dbConfig.password,
         database: dbConfig.database,
+        dateStrings: true,
+        connectionLimit: 4,
     });
 
 pool.on('connection', () => {
