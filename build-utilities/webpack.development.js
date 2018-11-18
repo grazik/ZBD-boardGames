@@ -26,10 +26,6 @@ const frontend = {
                     'css-loader',
                 ]
             },
-            {
-                test: /\.html$/,
-                use: 'html-loader',
-            }
         ],
     },
     plugins: [
