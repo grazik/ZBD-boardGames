@@ -11,16 +11,4 @@ const { dbConfig } = config,
         connectionLimit: 4,
     });
 
-pool.on('connection', () => {
-    console.log('CONNECTED');
-});
-
-pool.on('acquire', (connection) => {
-    console.log('Connection %d acquired', connection.threadId);
-});
-
-pool.on('release', (connection) => {
-    console.log('Connection %d released', connection.threadId);
-});
-
 export default pool;
