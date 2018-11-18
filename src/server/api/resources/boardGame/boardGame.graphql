@@ -1,0 +1,16 @@
+type BoardGame {
+    GAME_ID: Int!
+    TITLE: String!
+    DESCRIPTION: String
+    NUMBER_OF_PLAYERS: String!
+    AVAILABILITY: Int!
+    BAIL: Float!
+    OPINION: Float
+    CATEGORY: String!
+    IMAGE: String
+}
+
+extend type Query {
+    getGame(id: ID!): BoardGame!
+    getGames: [BoardGame]!
+}
