@@ -3,6 +3,7 @@ type User {
     NAME: String!
     LAST_NAME: String !
     ADDRESS: Address
+    EMPLOYEE: Boolean!
 }
 
 extend type Query {
