@@ -40,7 +40,6 @@ const typeDefs = [
         typeDefs,
         resolvers,
         playground: !PRODUCTION,
-        bodyParser: true,
     });
 
 export default server;

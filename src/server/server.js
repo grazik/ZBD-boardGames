@@ -6,6 +6,9 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, '../../dist/client')));
 
-graphQLRouter.applyMiddleware({ app });
+graphQLRouter.applyMiddleware({
+    app,
+    path: '/api',
+});
 
 export default app;
