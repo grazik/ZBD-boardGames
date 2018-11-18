@@ -1,0 +1,10 @@
+type Shop {
+    SHOP_ID: String!
+    NUMBER_OF_EMPLOYEES: Int!
+    ADDRESS: Address
+}
+
+extend type Query {
+    getShop(id: ID!): Shop!
+    getShops: [Shop]!
+}
