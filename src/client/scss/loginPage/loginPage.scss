@@ -1,0 +1,36 @@
+.content {
+    display: inline-block;
+    margin: 20% 0% 0 50%;
+    transform: translateX(-50%) translateZ(0);
+
+    &-logo {
+        background-size: contain;
+        background-image: url("~images/logo/logo_plain.svg");
+        height: 150px;
+        margin: 0 auto;
+        width: 150px;
+    }
+
+    &-form--input {
+        display: block;
+        margin: 20px 0;
+        padding: 8px;
+    }
+
+    &-form--singIn {
+        @include transition(background-color, border-color, color);
+        background-color: $cyan_dark;
+        border: 2px solid $white;
+        border-radius: 16px;
+        color: $white;
+        font-weight: bold;
+        padding: 10px;
+        width: 100%;
+
+        &:hover {
+            background-color: $white;
+            border-color: $cyan_dark;
+            color: $cyan_dark;
+        }
+    }
+}
