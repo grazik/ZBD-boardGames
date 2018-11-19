@@ -9,11 +9,18 @@ const loadPresets = require('./build-utilities/loadPresets');
 modeConfig = env => require(`./build-utilities/webpack.${env.mode}.js`)(env);
 
 const front = {
-    entry: path.resolve(__dirname, 'src/client/index.js'),
+    entry: {
+        loginPage: path.resolve(__dirname, 'src/client/loginPage.js'),
+    },
     target: 'web',
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist/client'),
+    },
+    resolve: {
+        alias: {
+            images: path.resolve(__dirname, './src/client/images'),
+        },
     },
     module: {
         rules: [
@@ -40,9 +47,11 @@ const front = {
             new CleanWebpackPlugin(path.resolve(__dirname, 'dist/client')),
             new MiniCssExtractPlugin(),
             new HtmlWebpackPlugin({
-                title: 'Test',
-                template: './src/client/index.html',
+                title: 'Login',
+                template: './src/client/templates/loginPage.html',
                 hash: true,
+                filename: 'loginPage.html',
+                chunks: ['loginPage'],
             }),
         ]
 };

@@ -6,9 +6,6 @@ const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 
 const frontend = {
-    entry: [
-        path.resolve(__dirname, '../src/client/index.js')
-    ],
     watch: true,
     devServer: {
         open: true,
@@ -16,14 +13,16 @@ const frontend = {
             '/api': 'http://localhost:3000'
         },
         inline: true,
+        openPage: 'loginPage.html'
     },
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.s?css$/,
                 use: [
                     'style-loader',
                     'css-loader',
+                    'sass-loader'
                 ]
             },
         ],
