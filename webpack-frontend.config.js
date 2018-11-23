@@ -10,6 +10,7 @@ modeConfig = env => require(`./build-utilities/webpack.${env.mode}.js`)(env);
 
 const front = {
     entry: {
+        main: path.resolve(__dirname, 'src/client/index.js'),
         loginPage: path.resolve(__dirname, 'src/client/loginPage.js'),
     },
     target: 'web',
@@ -20,10 +21,24 @@ const front = {
     resolve: {
         alias: {
             images: path.resolve(__dirname, './src/client/images'),
+            components: path.resolve(__dirname, 'src/client/components'),
         },
     },
     module: {
         rules: [
+            {
+                test: /\.js$/,
+                exclude: ['/node_modules/'],
+                use: [
+                    {
+                        loader: 'babel-loader',
+                        options: {
+                            plugins: ['@babel/plugin-syntax-dynamic-import'],
+                            presets: [['@babel/preset-env', { modules: false }]],
+                        },
+                    },
+                ],
+            },
             {
                 test: /\.(gif|png|jpe?g|webp|svg)$/i,
                 use: [
@@ -52,6 +67,13 @@ const front = {
                 hash: true,
                 filename: 'loginPage.html',
                 chunks: ['loginPage'],
+            }),
+            new HtmlWebpackPlugin({
+                title: 'BoardGames World',
+                template: './src/client/templates/index.html',
+                hash: true,
+                filename: 'index.html',
+                chunks: ['index'],
             }),
         ]
 };

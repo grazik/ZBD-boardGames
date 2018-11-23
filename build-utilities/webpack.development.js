@@ -10,8 +10,11 @@ const frontend = {
     devServer: {
         open: true,
         proxy: {
-            '/api': 'http://localhost:3000'
+            '/api': 'http://localhost:3000',
+            '/login': 'http://localhost:3000',
+            changeOrigin: true,
         },
+
         inline: true,
         openPage: 'loginPage.html'
     },
