@@ -1,7 +1,16 @@
 .content {
     display: inline-block;
-    margin: 20% 0% 0 50%;
+    margin: 15% 0 0 50%;
     transform: translateX(-50%) translateZ(0);
+    width: 310px;
+
+    &--main {
+        padding: 25px 15px;
+        background-color: $white;
+        border: 1px solid #d8dee2;
+        border-radius: 8px;
+
+    }
 
     &-logo {
         background-size: contain;
@@ -11,26 +20,66 @@
         width: 150px;
     }
 
-    &-form--input {
+    &-form_input {
+        box-sizing: border-box;
         display: block;
-        margin: 20px 0;
+        margin: 25px 0;
         padding: 8px;
+        width: 100%;
+
+        &--invalid {
+            outline: 1px solid red;
+        }
     }
 
-    &-form--singIn {
+
+    &-form_signIn {
         @include transition(background-color, border-color, color);
         background-color: $cyan_dark;
         border: 2px solid $white;
         border-radius: 16px;
         color: $white;
+        cursor: pointer;
         font-weight: bold;
         padding: 10px;
         width: 100%;
 
-        &:hover {
+        &:hover,
+        &:focus {
             background-color: $white;
             border-color: $cyan_dark;
             color: $cyan_dark;
         }
     }
+}
+
+.errorMsg {
+    background: $red_light;
+    color: $red_dark;
+    border-radius: 5px;
+    border: 1px solid $red_dark;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    margin: 0 0 20px 0;
+
+    &-close {
+        @include transition(opacity);
+        color: $red_dark;
+        font-size: 12px;
+        font-weight: bold;
+        opacity: .5;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+.removing {
+    @include transition(opacity);
+    opacity: 0;
 }
