@@ -10,4 +10,4 @@ const query = 'SELECT * FROM RENTED_GAMES',
         });
     });
 
-export default { getGames, };
+export default { getGames };
