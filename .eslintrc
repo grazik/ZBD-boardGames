@@ -35,9 +35,18 @@
             {
                 "props": false
             }
+        ],
+        "prefer-destructuring": [
+            "error",
+            {
+                "object": true,
+                "array": false
+            }
         ]
     },
     "globals": {
-        "PRODUCTION": false
+        "PRODUCTION": false,
+        "document": false,
+        "window": false
     }
 }

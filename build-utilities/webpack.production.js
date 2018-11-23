@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
@@ -9,12 +9,13 @@ const frontend = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.s?css$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
                     },
-                    "css-loader"
+                    'css-loader',
+                    'sass-loader',
                 ]
             },
         ]

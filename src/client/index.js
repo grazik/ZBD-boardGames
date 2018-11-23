@@ -1,5 +1,6 @@
-import './main.css';
+import './scss/styles.scss';
+import './components/index';
 
 if (!PRODUCTION) {
-    import('./index.html');
+    import('./templates/index.html');
 }

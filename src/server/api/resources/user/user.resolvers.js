@@ -5,7 +5,11 @@ import employeeController from '../employee/employee.controller';
 const userResolvers = {
     Query: {
         getUser: (_, { id }) => userController.getOne(id),
-        getUsers: () => userController.getAll(),
+        getUsers: (_, args) => userController.getAll(args),
+        validate: (_, { id, pwd }) => userController.validateUser({
+            id,
+            pwd,
+        }),
     },
     User: {
         ADDRESS(user) {

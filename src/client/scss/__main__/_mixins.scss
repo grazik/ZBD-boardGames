@@ -1,0 +1,13 @@
+@mixin pxToRem($value) {
+    font-size: $value + px;
+    font-size: $value / $fontSize + rem;
+}
+
+@mixin transition($properties...) {
+    $trans: ();
+    @each $property in $properties {
+        $trans: append($trans, $property $transitionTime ease, comma);
+    }
+
+    transition: $trans;
+}

@@ -1,0 +1,4 @@
+serverConfig = {
+    port: port for server,
+    cookieName = name for user cookie,
+};

@@ -31,8 +31,8 @@ const back = {
                         loader: 'babel-loader',
                         options: {
                             babelrc: false,
-                            presets: [['env', { modules: false }]],
-                            plugins: ['transform-regenerator', 'transform-runtime', 'transform-object-rest-spread']
+                            presets: [['@babel/preset-env', { modules: false }]],
+                            plugins: ['@babel/plugin-transform-regenerator', '@babel/plugin-transform-runtime']
                         }
                     }
                 ],
