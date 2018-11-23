@@ -1,6 +1,6 @@
 import express from 'express';
 import fetch from 'node-fetch';
-import config from '../../config/config';
+import config from '../config/config';
 
 const loginRouter = express.Router(),
     { serverConfig } = config,
@@ -34,12 +34,10 @@ const loginRouter = express.Router(),
 
 loginRouter.route('/')
     .get((req, res, next) => {
-        // res.redirect('/loginPage.html');
         req.url = '//../loginPage.html';
         next('route');
     })
     .post((req, res) => {
-        console.log(req.signedCookies);
         validateData(req)
             .then(response => sendResponse(response.data, req, res))
             .catch(err => console.log(err));
