@@ -10,7 +10,7 @@ modeConfig = env => require(`./build-utilities/webpack.${env.mode}.js`)(env);
 
 const front = {
     entry: {
-        main: path.resolve(__dirname, 'src/client/index.js'),
+        index: path.resolve(__dirname, 'src/client/index.js'),
         loginPage: path.resolve(__dirname, 'src/client/loginPage.js'),
     },
     target: 'web',
@@ -54,7 +54,20 @@ const front = {
             {
                 test: /\.html$/,
                 use: 'html-loader',
-            }
+            },
+            {
+                test: /\.hbs$/,
+                use: [
+                    {
+                        loader: 'handlebars-loader',
+                        query: {
+                            partialDirs: [
+                                path.join(__dirname, 'src/client/templates', 'partials'),
+                            ]
+                        }
+                    }
+                ],
+            },
         ],
     },
     plugins:
@@ -70,10 +83,11 @@ const front = {
             }),
             new HtmlWebpackPlugin({
                 title: 'BoardGames World',
-                template: './src/client/templates/index.html',
+                template: './src/client/templates/index.hbs',
                 hash: true,
                 filename: 'index.html',
                 chunks: ['index'],
+
             }),
         ]
 };
