@@ -47,26 +47,34 @@ const front = {
                         options: {
                             context: path.resolve(__dirname, './src/client'),
                             name: '[path][name].[ext]',
+                            publicPath(url) {
+                                return `${path.dirname(url)}/${path.basename(url)}`;
+                            },
                         },
                     },
                 ],
             },
             {
                 test: /\.html$/,
-                use: 'html-loader',
+                use: [{
+                    loader: 'html-loader',
+                    options: {
+                        interpolate: true,
+                    },
+                }],
             },
             {
-                test: /\.hbs$/,
-                use: [
-                    {
-                        loader: 'handlebars-loader',
-                        query: {
-                            partialDirs: [
-                                path.join(__dirname, 'src/client/templates', 'partials'),
-                            ]
-                        }
-                    }
-                ],
+                test: /\.(eot|svg|ttf|woff|woff2)(\?$|$)/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        context: path.resolve(__dirname, './src/client'),
+                        name: '[path][name].[ext]',
+                        publicPath(url) {
+                            return url.replace('\\', '/');
+                        },
+                    },
+                }],
             },
         ],
     },
@@ -83,7 +91,7 @@ const front = {
             }),
             new HtmlWebpackPlugin({
                 title: 'BoardGames World',
-                template: './src/client/templates/index.hbs',
+                template: './src/client/templates/index.html',
                 hash: true,
                 filename: 'index.html',
                 chunks: ['index'],
