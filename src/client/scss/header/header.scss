@@ -1,0 +1,49 @@
+.header {
+    background-color: rgba(103, 202, 187, .7);
+    border-bottom: 1px solid $grey;
+    overflow: auto;
+    height: 100px;
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
+.logo {
+    height: 90px;
+    margin: 5px 50px 5px 0;
+
+    &-img {
+        height: 100%;
+    }
+}
+
+.menu {
+    margin-left: 20px;
+    width: 100%;
+
+    &-list {
+        @include pxToRem(26);
+        color: $grey;
+        display: flex;
+        font-weight: 800;
+        justify-content: space-between;
+        list-style: none;
+        margin-left: 0;
+        padding-left: 0;
+    }
+
+    &-item {
+        @include transition(color);
+        display: inline-block;
+
+        &:hover,
+        &:focus {
+            color: $white;
+        }
+    }
+
+    &--link {
+        color: inherit;
+        text-decoration: none;
+    }
+}
