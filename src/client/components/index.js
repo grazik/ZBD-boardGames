@@ -1,1 +1,1 @@
-console.log('MAIN');
+import slider from './slider/slider';

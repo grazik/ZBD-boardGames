@@ -10,7 +10,7 @@ modeConfig = env => require(`./build-utilities/webpack.${env.mode}.js`)(env);
 
 const front = {
     entry: {
-        main: path.resolve(__dirname, 'src/client/index.js'),
+        index: path.resolve(__dirname, 'src/client/index.js'),
         loginPage: path.resolve(__dirname, 'src/client/loginPage.js'),
     },
     target: 'web',
@@ -47,14 +47,35 @@ const front = {
                         options: {
                             context: path.resolve(__dirname, './src/client'),
                             name: '[path][name].[ext]',
+                            publicPath(url) {
+                                return `${path.dirname(url)}/${path.basename(url)}`;
+                            },
                         },
                     },
                 ],
             },
             {
                 test: /\.html$/,
-                use: 'html-loader',
-            }
+                use: [{
+                    loader: 'html-loader',
+                    options: {
+                        interpolate: true,
+                    },
+                }],
+            },
+            {
+                test: /\.(eot|svg|ttf|woff|woff2)(\?$|$)/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        context: path.resolve(__dirname, './src/client'),
+                        name: '[path][name].[ext]',
+                        publicPath(url) {
+                            return url.replace('\\', '/');
+                        },
+                    },
+                }],
+            },
         ],
     },
     plugins:
@@ -74,6 +95,7 @@ const front = {
                 hash: true,
                 filename: 'index.html',
                 chunks: ['index'],
+
             }),
         ]
 };

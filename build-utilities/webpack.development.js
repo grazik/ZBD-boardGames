@@ -16,7 +16,6 @@ const frontend = {
         },
 
         inline: true,
-        openPage: 'loginPage.html'
     },
     module: {
         rules: [
