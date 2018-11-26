@@ -6,7 +6,7 @@ class Slider {
             loop: true,
             duration: 500,
         });
-        setInterval(() => this.siema.next(), 3000);
+        // setInterval(() => this.siema.next(), 3000);
     }
 }
 
