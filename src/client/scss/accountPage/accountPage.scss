@@ -34,7 +34,15 @@
         }
 
         &--edit {
+            @include transition(color);
+            color: $black;
+            text-decoration: none;
             margin-bottom: 20px;
+
+            &:hover,
+            &:focus {
+                color: $cyan_dark;
+            }
         }
     }
 
