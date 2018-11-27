@@ -1,1 +1,4 @@
-import slider from './slider/slider';
+import './slider/slider';
+import accountPage from './accountPage/accountPage';
+
+accountPage.init();
