@@ -1,0 +1,46 @@
+.account {
+    background-color: $white;
+    border: 1px solid $grey;
+    border-radius: 6px;
+    width: 100%;
+
+    &-content {
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    &-data {
+        display: flex;
+        margin-left: 40px;
+
+        &--column {
+            margin-right: 50px;
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+
+        &--label {
+            @include pxToRem(20);
+            display: block;
+            margin-bottom: 20px;
+            width: 100px;
+        }
+
+        &--input {
+            padding: 5px 10px;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        &--edit {
+            margin-bottom: 20px;
+        }
+    }
+
+    &-header {
+        @include pxToRem(24);
+        color: $cyan_dark;
+        font-weight: 800;
+    }
+}
