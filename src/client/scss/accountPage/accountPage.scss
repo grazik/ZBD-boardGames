@@ -1,8 +1,47 @@
 .account {
-    background-color: $white;
-    border: 1px solid $grey;
-    border-radius: 6px;
-    width: 100%;
+    align-items: flex-start;
+    display: flex;
+
+    &-sidePanel,
+    &-mainContent {
+        background-color: $white;
+        border: 1px solid $cyan_dark;
+        border-radius: 6px;
+        box-sizing: border-box;
+        padding-bottom: 24px;
+    }
+
+    &-sidePanel {
+        margin-right: 30px;
+        width: calc(25% - 30px);
+    }
+
+    &-mainContent {
+        width: 75%;
+    }
+
+    &-menu {
+        &--list {
+            list-style: none;
+        }
+
+        &--item {
+            &:hover,
+            &:focus,
+            &.active {
+                color: $cyan_dark;
+            }
+        }
+
+        &--link {
+            @include pxToRem(20);
+            @include transition(color);
+            color: inherit;
+            font-weight: 800;
+            line-height: 30px;
+            text-decoration: none;
+        }
+    }
 
     &-content {
         margin: 0 auto;
