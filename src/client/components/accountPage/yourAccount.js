@@ -1,6 +1,7 @@
 import config from 'components/indexConfig';
 
-const { accountPage } = config;
+const { accountPage } = config,
+    getYourGames
 
 class AccountPage {
     constructor() {
@@ -10,6 +11,7 @@ class AccountPage {
     init() {
         this.findStructures();
         this.addDataClickEvent();
+        this.addSubMenuEvent();
     }
 
     findStructures() {
@@ -23,6 +25,15 @@ class AccountPage {
                 this.dataElements.push(dataElement);
                 return true;
             });
+    }
+
+    addSubMenuEvent() {
+        document.getElementsByClassName(accountPage.menuClass)[0].addEventListener('click', e => this.onSubMenuClick(e));
+    }
+
+    onSubMenuClick(e) {
+        e.preventDefault();
+        console.log(e.target);
     }
 
     addDataClickEvent() {
@@ -39,4 +50,4 @@ class AccountPage {
     }
 }
 
-export default new AccountPage();
+export default AccountPage;

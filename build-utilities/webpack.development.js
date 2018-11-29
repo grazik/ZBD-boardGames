@@ -9,11 +9,10 @@ const frontend = {
     watch: true,
     devServer: {
         open: true,
-        proxy: {
-            '/api': 'http://localhost:3000',
-            '/login': 'http://localhost:3000',
-            changeOrigin: true,
-        },
+        proxy: [{
+            context: ['/api', '/login'],
+            target: 'http://localhost:3000',
+        }],
 
         inline: true,
     },
