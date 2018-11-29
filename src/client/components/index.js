@@ -1,4 +1,3 @@
 import './slider/slider';
-import accountPage from './accountPage/accountPage';
-
-accountPage.init();
+import './accountPage/yourAccount';
+import './accountPage/accountSidePanel';
