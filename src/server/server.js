@@ -1,5 +1,6 @@
 import express from 'express';
 import path from 'path';
+import helpers from './helpers';
 import cookieParser from 'cookie-parser';
 import loginRouter from './routers/login';
 import mainRouter from './routers/mainRouter';
@@ -13,6 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', mainRouter);
 app.use('/login', loginRouter);
+
+app.post('/api', helpers.addVariables);
 
 graphQLRouter.applyMiddleware({
     app,

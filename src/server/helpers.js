@@ -31,6 +31,18 @@ const
             }
         },
 
+        addVariables(req, res, next) {
+            const cookies = req.signedCookies,
+                cookie = cookies[Buffer.from(serverConfig.cookieName)
+                    .toString('base64')];
+            if (cookie && req.body.variables) {
+                const cookieDecoded = JSON.parse(Buffer.from(cookie, 'base64')
+                    .toString('ascii'));
+                req.body.variables.username = cookieDecoded.username;
+            }
+            next();
+        },
+
         parseHbs(source, context) {
             const html = fs.readFileSync(source, 'utf-8'),
                 template = Handlebars.compile(html);
