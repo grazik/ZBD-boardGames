@@ -1,5 +1,6 @@
-import { sendRequest, queries } from 'components/queries';
-import config from 'components/loginConfig';
+import queries from '../queries';
+import config from '../loginConfig';
+import helpers from '../helpers';
 
 const { loginConfig } = config;
 
@@ -19,7 +20,7 @@ class LoginPage {
         this.button.addEventListener('click', (e) => {
             e.preventDefault();
             if (this.validateInputs()) {
-                sendRequest(loginConfig.loginUrl, queries.validateUser(this.inputFields[0].value, btoa(this.inputFields[1].value)))
+                helpers.sendRequest(loginConfig.loginUrl, queries.validateUser(this.inputFields[0].value, btoa(this.inputFields[1].value)))
                     .then((res) => {
                         if (!res.data.validate) {
                             this.addErrorMsg();
