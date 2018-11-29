@@ -25,35 +25,33 @@
             list-style: none;
         }
 
-        &--item {
+        &--link {
+            @include pxToRem(20);
+            @include transition(color);
+            color: $black;
+            font-weight: 800;
+            line-height: 30px;
+            text-decoration: none;
+
             &:hover,
             &:focus,
             &.active {
                 color: $cyan_dark;
             }
         }
-
-        &--link {
-            @include pxToRem(20);
-            @include transition(color);
-            color: inherit;
-            font-weight: 800;
-            line-height: 30px;
-            text-decoration: none;
-        }
     }
 
     &-content {
+        box-sizing: border-box;
         margin: 0 auto;
-        width: 80%;
+        padding: 0 48px;
     }
 
     &-data {
         display: flex;
-        margin-left: 40px;
+        justify-content: space-around;
 
         &--column {
-            margin-right: 50px;
             display: flex;
             justify-content: space-around;
             flex-direction: column;
@@ -70,6 +68,7 @@
             padding: 5px 10px;
             display: block;
             margin-bottom: 20px;
+            width: 300px;
         }
 
         &--edit {
@@ -89,5 +88,62 @@
         @include pxToRem(24);
         color: $cyan_dark;
         font-weight: 800;
+    }
+
+    &-table {
+        border-collapse: collapse;
+        width: 100%;
+
+        &_header {
+            color: $white;
+            font-weight: 800;
+        }
+
+        &_header &_row {
+            background-color: $cyan_dark;
+        }
+
+        &_body &_row {
+            @include transition(background-color);
+            background-color: white;
+
+            &:nth-child(2n) {
+                background-color: rgba(103, 202, 187, .3);
+            }
+
+            &:nth-child(2n + 1) {
+                background-color: rgba(103, 202, 187, .5);
+            }
+
+            &:hover {
+                background-color: rgba(103, 202, 187, 1);
+            }
+        }
+
+        &_row:hover &_cell--link {
+            color: $black;
+        }
+
+        &_row:hover &_cell--link:hover,
+        &_row:hover &_cell--link:focus {
+            color: $white;
+        }
+
+        &_cell {
+            border: 1px solid $cyan_dark;
+            box-sizing: border-box;
+            padding: 10px 10px;
+            text-align: center;
+
+            &--link {
+                @include transition(color);
+                color: $cyan_dark;
+            }
+
+            &--link:hover,
+            &--link:focus {
+                color: $white;
+            }
+        }
     }
 }
