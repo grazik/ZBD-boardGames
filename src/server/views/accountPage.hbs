@@ -1,61 +1,59 @@
-<section class="mainContent page_wrapper section">
-    <div class="account">
-        <div class="account-sidePanel">
-            <h3 class="section-header">Menu</h3>
-            <nav class="account-menu">
-                <ul class="account-menu--list">
-                    <li class="account-menu--item active">
-                        <a href="#" class="account-menu--link">Twoje konto</a>
-                    </li>
-                    <li class="account-menu--item">
-                        <a href="#" class="account-menu--link">Twoje gry</a>
-                    </li>
-                    <li class="account-menu--item">
-                        <a href="#" class="account-menu--link">Twoje osiągnięcia</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="account-mainContent">
-            <h2 class="section-header">Twoje Konto</h2>
-            <div class="account-content">
-                <h3 class="account-header">Twoje Dane:</h3>
-                <div class="account-data">
-                    <div class="account-data--column">
-                        <label class="account-data--label">Imie</label>
-                        <label class="account-data--label">Nazwisko</label>
-                    </div>
-                    <div class="account-data--column">
-                        <input type="text" class="account-data--input" value="{{NAME}}" disabled>
-                        <input type="text" class="account-data--input" value="{{LAST_NAME}}" disabled>
-                    </div>
-                    <div class="account-data--column">
-                        <a href="#" class="account-data--edit">Edytuj</a>
-                        <a href="#" class="account-data--edit">Edytuj</a>
-                    </div>
+<div class="account">
+    <div class="account-sidePanel">
+        <h3 class="section-header">Menu</h3>
+        <nav class="account-menu">
+            <ul class="account-menu--list">
+                <li class="account-menu--item">
+                    <a href="#" class="account-menu--link active" data-dependency="Account">Twoje konto</a>
+                </li>
+                <li class="account-menu--item">
+                    <a href="#" class="account-menu--link" data-dependency="Games">Twoje gry</a>
+                </li>
+                <li class="account-menu--item">
+                    <a href="#" class="account-menu--link" data-dependency="Achievements">Twoje osiągnięcia</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="account-mainContent">
+        <h2 class="section-header">Twoje Konto</h2>
+        <div class="account-content">
+            <h3 class="account-header">Twoje Dane:</h3>
+            <div class="account-data">
+                <div class="account-data--column">
+                    <label class="account-data--label">Imie</label>
+                    <label class="account-data--label">Nazwisko</label>
                 </div>
-                <h3 class="account-header">Twoj Adres:</h3>
-                <div class="account-data">
-                    <div class="account-data--column">
-                        <label class="account-data--label">Miasto</label>
-                        <label class="account-data--label">Ulica</label>
-                        <label class="account-data--label">ZIP</label>
-                        <label class="account-data--label">Telefon</label>
-                    </div>
-                    <div class="account-data--column">
-                        <input type="text" class="account-data--input" value="{{ADDRESS.CITY}}" disabled>
-                        <input type="text" class="account-data--input" value="{{ADDRESS.STREET}}" disabled>
-                        <input type="text" class="account-data--input" value="{{ADDRESS.ZIP}}" disabled>
-                        <input type="text" class="account-data--input" value="{{ADDRESS.PHONE}}" disabled>
-                    </div>
-                    <div class="account-data--column">
-                        <a href="#" class="account-data--edit">Edytuj</a>
-                        <a href="#" class="account-data--edit">Edytuj</a>
-                        <a href="#" class="account-data--edit">Edytuj</a>
-                        <a href="#" class="account-data--edit">Edytuj</a>
-                    </div>
+                <div class="account-data--column">
+                    <input type="text" class="account-data--input" value="{{NAME}}" disabled>
+                    <input type="text" class="account-data--input" value="{{LAST_NAME}}" disabled>
+                </div>
+                <div class="account-data--column">
+                    <a href="#" class="account-data--edit">Edytuj</a>
+                    <a href="#" class="account-data--edit">Edytuj</a>
+                </div>
+            </div>
+            <h3 class="account-header">Twoj Adres:</h3>
+            <div class="account-data">
+                <div class="account-data--column">
+                    <label class="account-data--label">Miasto</label>
+                    <label class="account-data--label">Ulica</label>
+                    <label class="account-data--label">ZIP</label>
+                    <label class="account-data--label">Telefon</label>
+                </div>
+                <div class="account-data--column">
+                    <input type="text" class="account-data--input" value="{{ADDRESS.CITY}}" disabled>
+                    <input type="text" class="account-data--input" value="{{ADDRESS.STREET}}" disabled>
+                    <input type="text" class="account-data--input" value="{{ADDRESS.ZIP}}" disabled>
+                    <input type="text" class="account-data--input" value="{{ADDRESS.PHONE}}" disabled>
+                </div>
+                <div class="account-data--column">
+                    <a href="#" class="account-data--edit">Edytuj</a>
+                    <a href="#" class="account-data--edit">Edytuj</a>
+                    <a href="#" class="account-data--edit">Edytuj</a>
+                    <a href="#" class="account-data--edit">Edytuj</a>
                 </div>
             </div>
         </div>
     </div>
-</section>
+</div>
