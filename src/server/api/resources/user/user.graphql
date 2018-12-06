@@ -7,7 +7,7 @@ type User {
 }
 
 extend type Query {
-    getUser(username: ID!): User!
+    getUser(id: ID!): User!
     getUsers: [User]!
     validate(id: ID!, pwd: String!): User
 }

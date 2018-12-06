@@ -2,7 +2,7 @@ const queries = {
     getUser(username) {
         return {
             query: `{
-              getUser(username: "${username}") {
+              getUser(id: "${username}") {
                   NAME
                   LAST_NAME
                   ADDRESS {
