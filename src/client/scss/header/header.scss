@@ -1,5 +1,5 @@
 .header {
-    background-color: rgba(103, 202, 187, .7);
+    background-color: rgba(0, 0, 0, .7);
     border-bottom: 1px solid $grey;
     overflow: auto;
     height: 100px;
@@ -18,12 +18,9 @@
 }
 
 .menu {
-    margin-left: 20px;
-    width: 100%;
-
     &-list {
         @include pxToRem(26);
-        color: $grey;
+        color: $white;
         display: flex;
         font-weight: 800;
         justify-content: space-between;
@@ -33,17 +30,23 @@
     }
 
     &-item {
-        @include transition(color);
         display: inline-block;
+        margin-right: 30px;
 
-        &:hover,
-        &:focus {
-            color: $white;
+        &:last-of-type {
+            margin-right: 0;
         }
     }
 
     &--link {
-        color: inherit;
+        @include transition(color);
+        color: $white;
         text-decoration: none;
+
+        &.active,
+        &:hover,
+        &:focus {
+            color: $cyan_dark;
+        }
     }
 }

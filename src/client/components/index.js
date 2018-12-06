@@ -1,1 +1,3 @@
-import slider from './slider/slider';
+import './slider/slider';
+import './accountPage/yourAccount';
+import './accountPage/accountSidePanel';

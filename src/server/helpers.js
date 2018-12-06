@@ -1,8 +1,21 @@
+import fs from 'fs';
+import Handlebars from 'handlebars';
+import fetch from 'node-fetch';
 import config from './config/config';
 
 const
     { serverConfig } = config,
     helpers = {
+        sendRequest(url, query) {
+            return fetch(url, {
+                credentials: 'same-origin',
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(query),
+            })
+                .then(res => res.json());
+        },
+
         validateUser(req, res, next) {
             const cookies = req.signedCookies,
                 cookie = cookies[Buffer.from(serverConfig.cookieName)
@@ -16,6 +29,24 @@ const
             } else {
                 res.redirect('/login');
             }
+        },
+
+        addVariables(req, res, next) {
+            const cookies = req.signedCookies,
+                cookie = cookies[Buffer.from(serverConfig.cookieName)
+                    .toString('base64')];
+            if (cookie && req.body.variables) {
+                const cookieDecoded = JSON.parse(Buffer.from(cookie, 'base64')
+                    .toString('ascii'));
+                req.body.variables.username = cookieDecoded.username;
+            }
+            next();
+        },
+
+        parseHbs(source, context) {
+            const html = fs.readFileSync(source, 'utf-8'),
+                template = Handlebars.compile(html);
+            return template(context);
         },
     };
 
