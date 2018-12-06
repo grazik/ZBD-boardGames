@@ -21,14 +21,10 @@ class YourAccount {
     }
 
     appendHTML() {
-        return new Promise((resolve) => {
-            helpers.sendRequest('/api', queries.getUserData())
-                .then((data) => {
-                    document.getElementsByClassName('account-mainContent')[0].innerHTML = YourAccount.generateHTML(data.data.getUser);
-                    resolve();
-                })
-                .catch(err => console.log(err));
-        });
+        return helpers.sendRequest('/api', queries.getUserData())
+            .then((data) => {
+                document.getElementsByClassName('account-mainContent')[0].innerHTML = YourAccount.generateHTML(data.data.getUser);
+            });
     }
 
     addEvents() {
