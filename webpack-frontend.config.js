@@ -10,8 +10,8 @@ modeConfig = env => require(`./build-utilities/webpack.${env.mode}.js`)(env);
 
 const front = {
     entry: {
-        index: path.resolve(__dirname, 'src/client/index.js'),
-        loginPage: path.resolve(__dirname, 'src/client/loginPage.js'),
+        index: ['@babel/polyfill', path.resolve(__dirname, 'src/client/index.js')],
+        loginPage: ['@babel/polyfill', path.resolve(__dirname, 'src/client/loginPage.js')],
     },
     target: 'web',
     output: {
