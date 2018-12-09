@@ -18,7 +18,7 @@ class YourAccount {
                 this.findStructures();
                 this.addEvents();
             })
-            .catch(err => console.loo(err));
+            .catch(err => console.log(err));
     }
 
     appendHTML() {

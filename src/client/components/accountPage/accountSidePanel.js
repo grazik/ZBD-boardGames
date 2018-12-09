@@ -7,10 +7,13 @@ const { accountPage } = config,
 class AccountSidePanel {
     constructor() {
         this.acctiveElement = document.getElementsByClassName(accountPage.menuLinkClass)[0];
-        this.addSubMenuEvent();
+        if (this.acctiveElement) {
+            this.addSubMenuEvent();
+        }
     }
 
     init() {
+        this.appendHTML();
         this.acctiveElement = document.getElementsByClassName(accountPage.menuLinkClass)[0];
         this.addSubMenuEvent();
     }
@@ -33,6 +36,33 @@ class AccountSidePanel {
                     .catch((err) => console.log(err));
             }
         }
+    }
+
+    appendHTML() {
+        const account = document.getElementsByClassName('account')[0],
+            newElement = document.createElement('div');
+        newElement.innerHTML = this.generateHTML();
+
+        account.prepend(newElement.firstChild);
+    }
+
+    generateHTML() {
+        return `<div class="account-sidePanel">
+            <h3 class="section-header">Menu</h3>
+            <nav class="account-menu">
+                <ul class="account-menu--list">
+                    <li class="account-menu--item">
+                        <a href="#" class="account-menu--link active" data-dependency="Account">Twoje konto</a>
+                    </li>
+                    <li class="account-menu--item">
+                        <a href="#" class="account-menu--link" data-dependency="Games">Twoje gry</a>
+                    </li>
+                    <li class="account-menu--item">
+                        <a href="#" class="account-menu--link" data-dependency="Achievements">Twoje osiągnięcia</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>`;
     }
 }
 
