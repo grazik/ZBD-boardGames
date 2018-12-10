@@ -1,4 +1,5 @@
 const config = {
+    mainContentClass: 'mainContent',
     accountPage: {
         dataClass: 'account-data',
         columnClass: 'account-data--column',
@@ -9,6 +10,12 @@ const config = {
         menuLinkClass: 'account-menu--link',
         dataDependency: 'dependency',
         dependencyArray: ['Account', 'Games', 'Achievements'],
+    },
+    menuConfig: {
+        menuClass: 'menu',
+        menuLink: 'menu--link',
+        dataDependency: 'dependency',
+        dependencyArray: ['account', 'games', 'contact', 'logout'],
     },
 };
 
