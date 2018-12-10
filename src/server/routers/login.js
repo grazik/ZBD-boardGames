@@ -1,5 +1,4 @@
 import express from 'express';
-// import fetch from 'node-fetch';
 import config from '../config/config';
 import helpers from '../helpers';
 
