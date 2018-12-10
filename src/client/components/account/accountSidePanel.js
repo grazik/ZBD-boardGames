@@ -6,15 +6,15 @@ const { accountPage } = config,
 
 class AccountSidePanel {
     constructor() {
-        this.acctiveElement = document.getElementsByClassName(accountPage.menuLinkClass)[0];
-        if (this.acctiveElement) {
+        this.activeElement = document.getElementsByClassName(accountPage.menuLinkClass)[0];
+        if (this.activeElement) {
             this.addSubMenuEvent();
         }
     }
 
     init() {
         this.appendHTML();
-        this.acctiveElement = document.getElementsByClassName(accountPage.menuLinkClass)[0];
+        this.activeElement = document.getElementsByClassName(accountPage.menuLinkClass)[0];
         this.addSubMenuEvent();
     }
 
@@ -26,11 +26,11 @@ class AccountSidePanel {
         e.preventDefault();
         if (e.target.classList.contains(accountPage.menuLinkClass)) {
             const dependency = e.target.dataset[accountPage.dataDependency];
-            if (e.target !== this.acctiveElement && accountPage.dependencyArray.indexOf(dependency) + 1) { //indexOf returns -1 then value is not in array. First index is 0 (falsy), but +1 makes it 1 (truthy). -1 + 1 = 0, still falsy)
+            if (e.target !== this.activeElement && accountPage.dependencyArray.indexOf(dependency) + 1) { //indexOf returns -1 then value is not in array. First index is 0 (falsy), but +1 makes it 1 (truthy). -1 + 1 = 0, still falsy)
                 getDependency(dependency)
                     .then((module) => {
                         this.dependency = dependency;
-                        this.acctiveElement = helpers.toggleClass(this.acctiveElement, e.target, 'active');
+                        this.activeElement = helpers.toggleClass(this.activeElement, e.target, 'active');
                         module.default.init();
                     })
                     .catch((err) => console.log(err));
