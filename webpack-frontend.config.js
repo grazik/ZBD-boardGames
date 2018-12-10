@@ -10,8 +10,8 @@ modeConfig = env => require(`./build-utilities/webpack.${env.mode}.js`)(env);
 
 const front = {
     entry: {
-        index: ['@babel/polyfill', path.resolve(__dirname, 'src/client/index.js')],
-        loginPage: ['@babel/polyfill', path.resolve(__dirname, 'src/client/loginPage.js')],
+        index: [path.resolve(__dirname, 'src/client/index.js')],
+        loginPage: [path.resolve(__dirname, 'src/client/loginPage.js')],
     },
     target: 'web',
     output: {
@@ -34,7 +34,9 @@ const front = {
                         loader: 'babel-loader',
                         options: {
                             plugins: ['@babel/plugin-syntax-dynamic-import'],
-                            presets: [['@babel/preset-env', { modules: false }]],
+                            presets: [['@babel/preset-env', {
+                                modules: false,
+                            }]],
                         },
                     },
                 ],
