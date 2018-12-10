@@ -1,3 +1,9 @@
 import './slider/slider';
-import './accountPage/yourAccount';
-import './accountPage/accountSidePanel';
+import menu from './menu/menu';
+import account from './account/index';
+
+menu.init();
+
+if (!PRODUCTION) {
+    account.init();
+}
