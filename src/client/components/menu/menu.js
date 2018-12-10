@@ -21,7 +21,6 @@ const { menuConfig } = config,
         }
     };
 
-
 class Menu {
     init() {
         ``;
