@@ -1,11 +1,16 @@
-import express from 'express';
+import { Router } from 'express';
 import path from 'path';
 import jsdom from 'jsdom';
 import helpers from '../helpers';
 import queries from '../queries';
+import loginRouter from './login';
+import logoutRouter from './logout';
 
-const mainRouter = express.Router(),
+const mainRouter = Router(),
     { JSDOM } = jsdom;
+
+mainRouter.use('/login', loginRouter);
+mainRouter.use('/logout', logoutRouter);
 
 mainRouter.get('/', helpers.validateUser);
 mainRouter.get('/index.html', helpers.validateUser);

@@ -1,9 +1,8 @@
-import express from 'express';
-// import fetch from 'node-fetch';
+import { Router } from 'express';
 import config from '../config/config';
 import helpers from '../helpers';
 
-const loginRouter = express.Router(),
+const loginRouter = Router(),
     { serverConfig } = config,
     sendLoginCookies = (data, res) => {
         res.cookie(

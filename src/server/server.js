@@ -1,8 +1,7 @@
 import express from 'express';
 import path from 'path';
-import helpers from './helpers';
 import cookieParser from 'cookie-parser';
-import loginRouter from './routers/login';
+import helpers from './helpers';
 import mainRouter from './routers/mainRouter';
 import graphQLRouter from './api/graphQL';
 
@@ -13,7 +12,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/', mainRouter);
-app.use('/login', loginRouter);
 
 app.post('/api', helpers.addVariables);
 

@@ -10,7 +10,7 @@ const frontend = {
     devServer: {
         open: true,
         proxy: [{
-            context: ['/api', '/login'],
+            context: ['/api', '/login', '/logout'],
             target: 'http://localhost:3000',
         }],
 
