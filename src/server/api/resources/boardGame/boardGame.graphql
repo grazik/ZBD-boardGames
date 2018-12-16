@@ -6,7 +6,7 @@ type BoardGame {
     AVAILABILITY: Int!
     BAIL: Float!
     OPINION: Float
-    CATEGORY: String!
+    CATEGORY: [String]!
     IMAGE: String
 }
 
