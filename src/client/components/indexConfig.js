@@ -17,6 +17,10 @@ const config = {
         dataDependency: 'dependency',
         dependencyArray: ['account', 'games', 'contact', 'logout'],
     },
+    gamesConfig: {
+        categoriesFilterClass: 'games-filters_categories',
+        categoriesCheckboxes: 'games-filters_checkbox',
+    },
 };
 
 export default config;
