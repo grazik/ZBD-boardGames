@@ -45,6 +45,34 @@ const queries = {
             },
         };
     },
+    getAllGames() {
+        return {
+            query: `{
+                getGames {
+                    GAME_ID
+                    TITLE
+                    DESCRIPTION
+                    NUMBER_OF_PLAYERS
+                    AVAILABILITY
+                    BAIL
+                    OPINION
+                    CATEGORY
+                    IMAGE
+                }
+            }`,
+        };
+    },
+
+    getCategories() {
+        return {
+            query: `{
+                getCategories {
+                    CATEGORY_ID 
+                    NAME
+                }
+            }`,
+        };
+    },
 };
 
 export default queries;
