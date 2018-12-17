@@ -1,21 +1,16 @@
 import helpers from '../helpers';
 import queries from '../queries';
+import config from '../indexConfig';
+
+const { gamesConfig } = config;
 
 class AllGames {
-    init(context) {
-        this.determineContext(context)
+    init() {
+        helpers.sendRequest('/api', queries.getAllGames())
             .then(data => this.appendHTML(data.data.getGames))
-            .then(() => {
-                this.addEvents();
-            })
+            .then(context => this.appendTableBody(context))
+            .then(() => this.addEvents())
             .catch(err => console.log(err));
-    }
-
-    determineContext(context) {
-        if (context) {
-            return Promise.resolve(context);
-        }
-        return helpers.sendRequest('/api', queries.getAllGames());
     }
 
     addEvents() {
@@ -24,11 +19,25 @@ class AllGames {
 
 
     appendHTML(context) {
-        document.getElementsByClassName('games-mainContent')[0].innerHTML = AllGames.generateHTML(context);
-        return Promise.resolve();
+        document.getElementsByClassName('games-mainContent')[0].innerHTML = this.generateHTML();
+        return Promise.resolve(context);
     }
 
-    static generateHTML(context) {
+    appendTableBody(context) {
+        let content = '';
+        context.forEach((game) => {
+            content += `<tr class="games-table_row">
+                            <td class="games-table_cell">${game.TITLE}</td>
+                            <td class="games-table_cell">${game.CATEGORY.join(', ')}</td>
+                            <td class="games-table_cell">${game.NUMBER_OF_PLAYERS}</td>
+                            <td class="games-table_cell">${game.AVAILABILITY ? 'TAK' : 'NIE'}</td>
+                            <td class="games-table_cell">Wypożycz</td>
+                        </tr>`;
+        });
+        document.getElementsByClassName(gamesConfig.gamesTableBody)[0].innerHTML = content;
+    }
+
+    generateHTML() {
         const beginning = `<h2 class="section-header">Gry</h2>
             <div class="games-content">
                 <table class="games-table">
@@ -46,23 +55,9 @@ class AllGames {
             ending = `               
                     </tbody>
                 </table>
-            </div>`,
+            </div>`;
 
-            body = (() => {
-                let content = '';
-                context.forEach((game) => {
-                    content += `<tr class="games-table_row">
-                            <td class="games-table_cell">${game.TITLE}</td>
-                            <td class="games-table_cell">${game.CATEGORY.join(', ')}</td>
-                            <td class="games-table_cell">${game.NUMBER_OF_PLAYERS}</td>
-                            <td class="games-table_cell">${game.AVAILABILITY ? 'TAK' : 'NIE'}</td>
-                            <td class="games-table_cell">Wypożycz</td>
-                        </tr>`;
-                });
-                return content;
-            })();
-
-        return beginning + body + ending;
+        return beginning + ending;
     }
 }
 
