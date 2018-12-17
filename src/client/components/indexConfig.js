@@ -18,8 +18,14 @@ const config = {
         dependencyArray: ['account', 'games', 'contact', 'logout'],
     },
     gamesConfig: {
-        categoriesFilterClass: 'games-filters_categories',
+        gamesFiltersClass: 'games-filters',
+        filterInputsClass: 'games-filters_inputs',
         categoriesCheckboxes: 'games-filters_checkbox',
+        min: 'min',
+        max: 'max',
+        category: 'category',
+        availability: 'availability',
+        gamesTableBody: 'games-table_body',
     },
 };
 
