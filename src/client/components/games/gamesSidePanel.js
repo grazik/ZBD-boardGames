@@ -98,14 +98,20 @@ class GamesSidePanel {
     generateAvailabilityFilter() {
         const body = `<div class="games-filters_inputs games-filters_availability">
                     <h3 class="games-header">Dostępność:</h3>`,
-            options = ['0', '1'];
+            options = [{
+                value: '0',
+                name: 'Nie'
+            }, {
+                value: '1',
+                name: 'Tak'
+            }];
         let content = '';
 
         options.forEach((option) => {
             content += `<label class="games-filters_label">
-                        <input class="games-filters_input games-filters_input" type="checkbox" name="${gamesConfig.availability}" value="${option}" checked>
+                        <input class="games-filters_input games-filters_input" type="checkbox" name="${gamesConfig.availability}" value="${option.value}" checked>
                         <span class="games-filters_checkmark"></span>
-                        <span class="games-filters_labelValue">${option}</span>
+                        <span class="games-filters_labelValue">${option.name}</span>
                     </label>`;
         });
 
