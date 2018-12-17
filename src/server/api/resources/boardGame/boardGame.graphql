@@ -13,4 +13,5 @@ type BoardGame {
 extend type Query {
     getGame(id: ID!): BoardGame!
     getGames: [BoardGame]!
+    getFilteredGames(categories: String, availability: String, min: String, max: String): [BoardGame]!
 }

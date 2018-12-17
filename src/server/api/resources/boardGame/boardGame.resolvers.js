@@ -4,6 +4,7 @@ const boardGameResolvers = {
     Query: {
         getGame: (_, { id }) => boardGameController.getOne(id),
         getGames: () => boardGameController.getAll(),
+        getFilteredGames: (_, options) => boardGameController.getFilteredGames(options),
     },
 
     BoardGame: {
