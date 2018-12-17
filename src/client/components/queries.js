@@ -63,6 +63,24 @@ const queries = {
         };
     },
 
+    getFilteredGames(categories, availability, min, max) {
+        return {
+            query: `{
+                getFilteredGames(categories: "${categories}", availability: "${availability}", min: "${min}", max: "${max}") {
+                    GAME_ID
+                    TITLE
+                    DESCRIPTION
+                    NUMBER_OF_PLAYERS
+                    AVAILABILITY
+                    BAIL
+                    OPINION
+                    CATEGORY
+                    IMAGE
+                }
+            }`,
+        };
+    },
+
     getCategories() {
         return {
             query: `{
