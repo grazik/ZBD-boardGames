@@ -6,11 +6,12 @@ type BoardGame {
     AVAILABILITY: Int!
     BAIL: Float!
     OPINION: Float
-    CATEGORY: String!
+    CATEGORY: [String]!
     IMAGE: String
 }
 
 extend type Query {
     getGame(id: ID!): BoardGame!
     getGames: [BoardGame]!
+    getFilteredGames(categories: String, availability: String, min: String, max: String): [BoardGame]!
 }

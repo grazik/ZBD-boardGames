@@ -1,0 +1,184 @@
+.games {
+    align-items: flex-start;
+    display: flex;
+
+    &-header {
+        @include pxToRem(24);
+        color: $cyan_dark;
+        font-weight: 800;
+        width: 100%;
+
+        &--sub {
+            @include pxToRem(20);
+            margin: 0 0 16px 0;
+            width: 50%;
+        }
+    }
+
+    &-sidePanel,
+    &-mainContent {
+        background-color: $white;
+        border: 1px solid $cyan_dark;
+        border-radius: 6px;
+        box-sizing: border-box;
+        padding-bottom: 24px;
+    }
+
+    &-sidePanel {
+        margin-right: 30px;
+        padding: 0 32px 24px 32px;
+        width: calc(25% - 30px);
+    }
+
+    &-mainContent {
+        width: 75%;
+    }
+
+    &-content {
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 0 48px;
+    }
+
+    &-table {
+        border-collapse: collapse;
+        width: 100%;
+
+        &_header {
+            color: $white;
+            font-weight: 800;
+        }
+
+        &_header &_row {
+            background-color: $cyan_dark;
+        }
+
+        &_body &_row {
+            @include transition(background-color);
+            background-color: white;
+
+            &:nth-child(2n) {
+                background-color: rgba(103, 202, 187, .3);
+            }
+
+            &:nth-child(2n + 1) {
+                background-color: rgba(103, 202, 187, .5);
+            }
+
+            &:hover {
+                background-color: rgba(103, 202, 187, 1);
+            }
+        }
+
+        &_row:hover &_cell--link {
+            color: $black;
+        }
+
+        &_row:hover &_cell--link:hover,
+        &_row:hover &_cell--link:focus {
+            color: $white;
+        }
+
+        &_cell {
+            border: 1px solid $cyan_dark;
+            box-sizing: border-box;
+            padding: 10px 10px;
+            text-align: center;
+
+            &--link {
+                @include transition(color);
+                color: $cyan_dark;
+            }
+
+            &--link:hover,
+            &--link:focus {
+                color: $white;
+            }
+        }
+    }
+
+
+    &-filters {
+        &_inputs {
+            align-items: flex-start;
+            display: flex;
+            flex-direction: column;
+            font-size: 0;
+        }
+
+        &_label {
+            display: inline-block;
+            font-size: 14px;
+            margin-bottom: 14px;
+            position: relative;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        &_input {
+            display: none;
+        }
+
+        &_checkmark {
+            background-color: $grey_light;
+            border: 1px solid $grey_dark;
+            display: inline-block;
+            height: 20px;
+            margin-right: 6px;
+            position: relative;
+            vertical-align: middle;
+            width: 20px;
+
+            &::before {
+                @include transition(background-color);
+                background-color: inherit;
+                content: '';
+                height: 14px;
+                left: 50%;
+                position: absolute;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 14px;
+            }
+        }
+
+        &_column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &_input--radio + &_checkmark {
+            border-radius: 50%;
+
+            &::before {
+                border-radius: 50%;
+            }
+        }
+
+        &_label:hover &_checkmark::before {
+            background-color: $grey;
+        }
+
+        &_input:checked + &_checkmark::before {
+            @at-root input#{&} {
+                background-color: $cyan_dark;
+            }
+        }
+
+        &_labelValue {
+            vertical-align: middle;
+        }
+
+        &_availability, &_players {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+    }
+
+    &-filters_categories &-header {
+        margin-top: 0;
+    }
+}
