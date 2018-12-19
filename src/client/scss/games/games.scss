@@ -84,15 +84,22 @@
             box-sizing: border-box;
             padding: 10px 10px;
             text-align: center;
+        }
 
-            &--link {
-                @include transition(color);
-                color: $cyan_dark;
+        &_link {
+            @include transition(color);
+            color: $cyan_dark;
+
+            &:hover,
+            &:focus {
+                color: $white;
             }
 
-            &--link:hover,
-            &--link:focus {
-                color: $white;
+            &--disabled,
+            &--disabled:hover,
+            &--disabled:focus {
+                color: grey;
+                cursor: text;
             }
         }
     }
