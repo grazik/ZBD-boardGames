@@ -9,14 +9,27 @@ class AllGames {
         helpers.sendRequest('/api', queries.getAllGames())
             .then(data => this.appendHTML(data.data.getGames))
             .then(context => this.appendTableBody(context))
+            .then(() => this.saveVariables())
             .then(() => this.addEvents())
             .catch(err => console.log(err));
     }
 
     addEvents() {
-
+        this.tBody.addEventListener('click', e => this.onTBodyClick(e));
     }
 
+    saveVariables() {
+        this.table = document.getElementsByClassName('games-table')[0];
+        this.tBody = document.getElementsByClassName('games-table_body')[0];
+        this.tHead = document.getElementsByClassName('games-table_header')[0];
+    }
+
+    onTBodyClick(e) {
+        e.preventDefault();
+        if (e.target.classList.contains(config.borrowGame)) {
+            console.log(e.target);
+        }
+    }
 
     appendHTML(context) {
         document.getElementsByClassName('games-mainContent')[0].innerHTML = this.generateHTML();
@@ -31,7 +44,15 @@ class AllGames {
                             <td class="games-table_cell">${game.CATEGORY.join(', ')}</td>
                             <td class="games-table_cell">${game.NUMBER_OF_PLAYERS}</td>
                             <td class="games-table_cell">${game.AVAILABILITY ? 'TAK' : 'NIE'}</td>
-                            <td class="games-table_cell">Wypożycz</td>
+                            <td class="games-table_cell">`;
+
+            if (game.AVAILABILITY) {
+                content += `<a href="#" class="games-table_link ${config.borrowGame}">Wypożycz</a>`;
+            } else {
+                content += '<a href="#" class="games-table_link games-table_link--disabled">Wypożycz</a>';
+            }
+
+            content += `</td>
                         </tr>`;
         });
         document.getElementsByClassName(gamesConfig.gamesTableBody)[0].innerHTML = content;
