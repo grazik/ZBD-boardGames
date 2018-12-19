@@ -1,5 +1,6 @@
 const config = {
     mainContentClass: 'mainContent',
+    borrowGame: 'jsBorrowGame',
     accountPage: {
         dataClass: 'account-data',
         columnClass: 'account-data--column',
