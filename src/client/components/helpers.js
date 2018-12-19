@@ -1,3 +1,6 @@
+import queries from './queries';
+import config from './indexConfig';
+
 const helpers = {
     toggleClass(obj1, obj2, className) {
         obj1.classList.remove(className);
@@ -13,6 +16,15 @@ const helpers = {
             body: JSON.stringify(body),
         })
             .then(res => res.json());
+    },
+
+    changeRow() {
+    },
+
+    borrowGame(gameID) {
+        return helpers.sendRequest('/api', queries.rentGame(gameID))
+            .then(data => data.data.borrowGame)
+            .catch(err => console.log(err));
     },
 };
 
