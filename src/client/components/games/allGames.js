@@ -26,8 +26,15 @@ class AllGames {
 
     onTBodyClick(e) {
         e.preventDefault();
-        if (e.target.classList.contains(config.borrowGame)) {
-            console.log(e.target);
+        const { target } = e;
+        if (target.classList.contains(config.borrowGame)) {
+            const gameID = target.dataset[config.gameIDAtr];
+            helpers.borrowGame(gameID)
+                .then(() => helpers.sendRequest('/api', queries.getGame(gameID)))
+                .then((data) => {
+                    target.parentNode.parentNode.innerHTML = this.generateBodyRow(data.data.getGame);
+                    return Promise.resolve();
+                });
         }
     }
 
@@ -36,24 +43,32 @@ class AllGames {
         return Promise.resolve(context);
     }
 
-    appendTableBody(context) {
+    generateBodyRow(game) {
         let content = '';
-        context.forEach((game) => {
-            content += `<tr class="games-table_row">
+
+        content += `<tr class="games-table_row">
                             <td class="games-table_cell">${game.TITLE}</td>
                             <td class="games-table_cell">${game.CATEGORY.join(', ')}</td>
                             <td class="games-table_cell">${game.NUMBER_OF_PLAYERS}</td>
                             <td class="games-table_cell">${game.AVAILABILITY ? 'TAK' : 'NIE'}</td>
                             <td class="games-table_cell">`;
 
-            if (game.AVAILABILITY) {
-                content += `<a href="#" class="games-table_link ${config.borrowGame}">Wypożycz</a>`;
-            } else {
-                content += '<a href="#" class="games-table_link games-table_link--disabled">Wypożycz</a>';
-            }
+        if (game.AVAILABILITY) {
+            content += `<a href="#" data-${config.gameIDAtr}="${game.GAME_ID}" class="games-table_link ${config.borrowGame}">Wypożycz</a>`;
+        } else {
+            content += '<span class="games-table_link games-table_link--disabled">Wypożycz</span>';
+        }
 
-            content += `</td>
-                        </tr>`;
+        content += `</td>
+               </tr>`;
+
+        return content;
+    }
+
+    appendTableBody(context) {
+        let content = '';
+        context.forEach((game) => {
+            content += this.generateBodyRow(game);
         });
         document.getElementsByClassName(gamesConfig.gamesTableBody)[0].innerHTML = content;
     }
