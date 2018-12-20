@@ -14,6 +14,11 @@ const helpers = {
         })
             .then(res => res.json());
     },
+
+    getDate(dateObject) {
+        const date = new Date(Number(dateObject));
+        return date.toLocaleDateString();
+    },
 };
 
 export default helpers;
