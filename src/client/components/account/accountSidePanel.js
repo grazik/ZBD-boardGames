@@ -30,7 +30,7 @@ class AccountSidePanel {
                 getDependency(dependency)
                     .then((module) => {
                         this.dependency = dependency;
-                        this.activeElement = helpers.toggleClass(this.activeElement, e.target, 'active');
+                        this.activeElement = helpers.moveClass(this.activeElement, e.target, 'active');
                         module.default.init();
                     })
                     .catch((err) => console.log(err));
