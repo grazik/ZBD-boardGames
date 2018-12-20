@@ -35,7 +35,7 @@ const helpers = {
         return newElemContent;
     },
 
-    borrowGame(gameID) {
+    rentGame(gameID) {
         return helpers.sendRequest('/api', queries.rentGame(gameID))
             .then(data => data.data.rentGame)
             .catch(err => console.log(err));

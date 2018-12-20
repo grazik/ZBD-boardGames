@@ -36,7 +36,7 @@ class AllGames {
 
     rentGameEvent(target) {
         const gameID = target.dataset[config.gameIDAtr];
-        helpers.borrowGame(gameID)
+        helpers.rentGame(gameID)
             .then((result) => {
                 if (result) {
                     updatePopUp.init('Sukces', 'Udalo się wypożyczyć gre!', true);

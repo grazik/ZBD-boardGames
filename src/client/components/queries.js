@@ -95,7 +95,7 @@ const queries = {
     rentGame(gameID) {
         return {
             query: `query rentGame($username: ID!, $game:ID!){
-                borrowGame(clientID:$username, gameID: $game)
+                rentGame(clientID:$username, gameID: $game)
             }`,
             variables: {
                 username: '',
