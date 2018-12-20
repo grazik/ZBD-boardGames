@@ -1,6 +1,8 @@
 import helpers from '../helpers';
 import queries from '../queries';
 import config from '../indexConfig';
+import updatePopUp from '../updatePopUp/updatePopUp';
+import filters from './filters';
 
 const { gamesConfig } = config;
 
@@ -28,15 +30,34 @@ class AllGames {
         e.preventDefault();
         const { target } = e;
         if (target.classList.contains(config.borrowGame)) {
-            const gameID = target.dataset[config.gameIDAtr];
-            helpers.borrowGame(gameID)
-                .then(() => helpers.sendRequest('/api', queries.getGame(gameID)))
-                .then((data) => {
-                    target.parentNode.parentNode.innerHTML = this.generateBodyRow(data.data.getGame);
-                    return Promise.resolve();
-                });
+            this.rentGameEvent(target);
         }
     }
+
+    rentGameEvent(target) {
+        const gameID = target.dataset[config.gameIDAtr];
+        helpers.borrowGame(gameID)
+            .then((result) => {
+                if (result) {
+                    updatePopUp.init('Sukces', 'Udalo się wypożyczyć gre!', true);
+                } else {
+                    updatePopUp.init('Porażka', 'Wystąpił problem przy wypożyczeniu', false);
+                }
+                return Promise.resolve();
+            })
+            .then(() => {
+                if (filters.options[gamesConfig.availability].indexOf('0') + 1) {
+                    return helpers.sendRequest('/api', queries.getGame(gameID))
+                        .then((data) => {
+                            helpers.replaceChild(this.tBody, target.parentNode.parentNode, this.generateBodyRow(data.data.getGame), 'tbody');
+                            return Promise.resolve();
+                        });
+                }
+                this.tBody.removeChild(target.parentNode.parentNode);
+                return Promise.resolve();
+            });
+    }
+
 
     appendHTML(context) {
         document.getElementsByClassName('games-mainContent')[0].innerHTML = this.generateHTML();
