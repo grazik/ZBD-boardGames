@@ -1,6 +1,7 @@
 const config = {
+    invisibleClass: 'invisible',
     mainContentClass: 'mainContent',
-    borrowGame: 'jsRentGame',
+    rentGame: 'jsRentGame',
     gameIDAtr: 'gameid',
     accountPage: {
         dataClass: 'account-data',

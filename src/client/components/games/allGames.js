@@ -29,7 +29,7 @@ class AllGames {
     onTBodyClick(e) {
         e.preventDefault();
         const { target } = e;
-        if (target.classList.contains(config.borrowGame)) {
+        if (target.classList.contains(config.rentGame)) {
             this.rentGameEvent(target);
         }
     }
@@ -75,7 +75,7 @@ class AllGames {
                             <td class="games-table_cell">`;
 
         if (game.AVAILABILITY) {
-            content += `<a href="#" data-${config.gameIDAtr}="${game.GAME_ID}" class="games-table_link ${config.borrowGame}">Wypożycz</a>`;
+            content += `<a href="#" data-${config.gameIDAtr}="${game.GAME_ID}" class="games-table_link ${config.rentGame}">Wypożycz</a>`;
         } else {
             content += '<span class="games-table_link games-table_link--disabled">Wypożycz</span>';
         }
