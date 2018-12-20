@@ -1,13 +1,10 @@
 import pool from 'db';
 
-const query = 'SELECT * FROM RENTED_GAMES',
-    getGames = args => new Promise((resolve) => {
-        const parts = [];
-        Object.keys(args)
-            .map(key => parts.push(`${key.toUpperCase()} = "${args[key]}"`));
-        pool.query(`${query} ${parts.length ? ' WHERE ' : ''} ${parts.join(' AND ')};`, (error, results) => {
-            resolve(results);
-        });
+const getGames = id => new Promise((resolve) => {
+    pool.query(`SELECT * FROM RENTED_GAMES WHERE CLIENT_ID="${id}" ORDER BY RENT_DATE DESC;`, (error, results) => {
+        console.log(error);
+        resolve(results);
     });
+});
 
 export default { getGames };
