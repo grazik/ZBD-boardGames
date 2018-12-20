@@ -8,7 +8,7 @@ const helpers = {
         return obj2;
     },
 
-    toogleClass(obj, className) {
+    toggleClass(obj, className) {
         if (obj.classList.contains(className)) {
             obj.classList.remove(className);
         } else {

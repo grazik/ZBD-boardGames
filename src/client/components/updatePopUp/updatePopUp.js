@@ -17,7 +17,7 @@ class UpdatePopUp {
 
         this.timeout = setTimeout(() => this.removePopUp(), 3000);
 
-        setTimeout(() => helpers.toogleClass(this.popUp, config.invisibleClass), 0);
+        setTimeout(() => helpers.toggleClass(this.popUp, config.invisibleClass), 0);
         this.addEvents();
     }
 
@@ -54,7 +54,7 @@ class UpdatePopUp {
 
     removePopUp() {
         clearTimeout(this.timeout);
-        helpers.toogleClass(this.popUp, config.invisibleClass);
+        helpers.toggleClass(this.popUp, config.invisibleClass);
         setTimeout(() => {
             globals.body.removeChild(this.popUp);
             this.popUp = null;
