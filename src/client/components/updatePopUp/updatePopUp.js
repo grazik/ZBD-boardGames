@@ -7,7 +7,6 @@ class UpdatePopUp {
         this.title = title;
         this.text = text;
         this.isPositive = isPositive;
-
         if (this.popUp) {
             this.popUp = helpers.replaceChild(globals.body, this.popUp, this.generateHTML());
             clearTimeout(this.timeout);
@@ -25,7 +24,7 @@ class UpdatePopUp {
         const elem = document.createElement('div');
         elem.innerHTML = this.generateHTML();
         this.popUp = elem.firstChild;
-        globals.body.appendChild(elem.firstChild);
+        globals.body.appendChild(this.popUp);
     }
 
     generateHTML() {

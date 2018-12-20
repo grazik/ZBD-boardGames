@@ -31,7 +31,11 @@ const helpers = {
         const newElem = document.createElement(tag);
         newElem.innerHTML = html;
         newElemContent = newElem.firstChild;
-        parentElem.replaceChild(newElemContent, oldElem);
+
+        if (oldElem.parentNode === parentElem) {
+            parentElem.replaceChild(newElemContent, oldElem);
+        }
+
         return newElemContent;
     },
 
