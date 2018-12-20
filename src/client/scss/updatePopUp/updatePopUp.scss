@@ -1,0 +1,54 @@
+.updatePopUp {
+    @include transition(opacity, visibility);
+    background-color: $cyan_light;
+    border: 2px solid $cyan_dark;
+    border-radius: 12px;
+    box-sizing: border-box;
+    left: 50%;
+    padding: 0 30px 24px 30px;
+    position: fixed;
+    top: 200px;
+    transform: translateX(-50%);
+
+    &-header {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &-title {
+        @include pxToRem(20);
+        color: $cyan_dark;
+        font-weight: 800;
+    }
+
+    &-close {
+        @include transition(opacity);
+        color: $cyan_dark;
+        font-size: 12px;
+        font-weight: bold;
+        opacity: .5;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    &-text {
+        color: $cyan_dark;
+    }
+
+    &--failure {
+        background-color: $red_light;
+        border-color: $red_dark;
+    }
+
+    &--failure &-title {
+        color: $red_dark;
+    }
+
+    &--failure &-text {
+        color: $red_dark;
+    }
+}

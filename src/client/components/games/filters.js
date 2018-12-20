@@ -5,7 +5,7 @@ import allGames from './allGames';
 
 const { gamesConfig } = config;
 
-class GamesSidePanel {
+class Filters {
     init() {
         this.appendHTML()
             .then(() => this.createVariables())
@@ -181,4 +181,4 @@ class GamesSidePanel {
     }
 }
 
-export default new GamesSidePanel();
+export default new Filters();

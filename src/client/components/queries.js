@@ -92,6 +92,36 @@ const queries = {
             }`,
         };
     },
+
+    rentGame(gameID) {
+        return {
+            query: `query rentGame($username: ID!, $game:ID!){
+                rentGame(clientID:$username, gameID: $game)
+            }`,
+            variables: {
+                username: '',
+                game: gameID,
+            },
+        };
+    },
+
+    getGame(gameID) {
+        return {
+            query: `{
+                getGame(id: ${gameID}) {
+                    GAME_ID
+                    TITLE
+                    DESCRIPTION
+                    NUMBER_OF_PLAYERS
+                    AVAILABILITY
+                    BAIL
+                    OPINION
+                    CATEGORY
+                    IMAGE   
+                }
+            }`,
+        };
+    },
 };
 
 export default queries;
