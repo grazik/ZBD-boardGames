@@ -1,5 +1,8 @@
 const config = {
+    invisibleClass: 'invisible',
     mainContentClass: 'mainContent',
+    rentGame: 'jsRentGame',
+    gameIDAtr: 'gameid',
     accountPage: {
         dataClass: 'account-data',
         columnClass: 'account-data--column',

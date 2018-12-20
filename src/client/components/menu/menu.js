@@ -41,7 +41,7 @@ class Menu {
                 getDependency(dependency)
                     .then(module => {
                         module.default.init();
-                        helpers.toggleClass(this.activeElement, e.target, 'active');
+                        helpers.moveClass(this.activeElement, e.target, 'active');
                         this.activeElement = e.target;
                     });
             }

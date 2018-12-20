@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 0;
     background: #f9f9f9;
+    position: relative;
 }
 
 .clearfix {
@@ -24,4 +25,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.invisible {
+    opacity: 0;
+    visibility: hidden;
 }
