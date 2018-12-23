@@ -31,12 +31,14 @@ const queries = {
     getUserGames() {
         return {
             query: `query getUserGames($username: ID!){
-                getRentedGames(Client_ID: $username) {
+                getRentedGames(id: $username) {
                     RENT_DATE
                     RETURN_DATE
+                    Returned
                     GAME {
-                       TITLE
-                      AVAILABILITY
+                        TITLE
+                        AVAILABILITY
+                        GAME_ID
                     }
                 }
             }`,
@@ -121,6 +123,14 @@ const queries = {
             }`,
         };
     },
+
+    returnGame(gameID) {
+        return {
+            query: `{
+                returnGame(gameID: ${gameID})
+            }`,
+        };
+    }
 };
 
 export default queries;

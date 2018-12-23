@@ -21,6 +21,17 @@ const getGameCategories = id => new Promise((resolve) => {
             console.log(error);
             resolve(Object.values(results[0])[0]);
         });
+    }),
+
+    returnGame = gameID => new Promise((resolve) => {
+        try {
+            pool.query(`CALL ReturnGame(${gameID});`, (error) => {
+                console.log(error);
+                resolve(1);
+            });
+        } catch (e) {
+            resolve(0);
+        }
     });
 
 export default generateControllers(
@@ -32,5 +43,6 @@ export default generateControllers(
         getGameCategories,
         getFilteredGames,
         rentGame,
+        returnGame,
     },
 );

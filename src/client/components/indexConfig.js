@@ -2,6 +2,7 @@ const config = {
     invisibleClass: 'invisible',
     mainContentClass: 'mainContent',
     rentGame: 'jsRentGame',
+    returnGame: 'jsReturnGame',
     gameIDAtr: 'gameid',
     accountPage: {
         dataClass: 'account-data',
@@ -28,7 +29,11 @@ const config = {
         max: 'max',
         category: 'category',
         availability: 'availability',
-        gamesTableBody: 'games-table_body',
+    },
+    tableConfig: {
+        tableClass: 'table',
+        tableBodyClass: 'table_body',
+        tableHeaderClass: 'table_header',
     },
 };
 
