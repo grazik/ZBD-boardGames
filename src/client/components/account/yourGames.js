@@ -28,39 +28,28 @@ class YourGames {
 
     onTBodyClick(e) {
         e.preventDefault();
-        const { target } = e;
+        const { target } = e,
+            parentRow = target.parentNode.parentNode;
+
         if (target.classList.contains(config.returnGame)) {
-            this.returnGameEvent(target)
+            this.clickEvent(parentRow, helpers.returnGame, 'Udało się zwrócić grę', 'Wystąpił błąd przy próbie zwrócenia gry')
                 .then(() => this.updateTableBody())
                 .catch(err => console.log(err));
         } else if (target.classList.contains(config.rentGame)) {
-            this.rentGameEvent(target)
+            this.clickEvent(parentRow, helpers.rentGame, 'Udało się wypożyczyc grę', 'Wystąpił problem przy wypożyczeniu')
                 .then(() => this.updateTableBody())
                 .catch(err => console.log(err));
         }
     }
 
-    returnGameEvent(target) {
-        const gameID = target.dataset[config.gameIDAtr];
-        return helpers.returnGame(gameID)
+    clickEvent(parentRow, fn, success, failure) {
+        const gameID = parentRow.dataset[config.gameIDAtr];
+        return fn(gameID)
             .then((result) => {
                 if (result) {
-                    updatePopUp.init('Sukces', 'Udalo się zwrócić gre!', true);
+                    updatePopUp.init('Sukces', success, true);
                 } else {
-                    updatePopUp.init('Porażka', 'Wystąpił problem przy zwrocie', false);
-                }
-                return Promise.resolve();
-            });
-    }
-
-    rentGameEvent(target) {
-        const gameID = target.dataset[config.gameIDAtr];
-        return helpers.rentGame(gameID)
-            .then((result) => {
-                if (result) {
-                    updatePopUp.init('Sukces', 'Udalo się wypożyczyć gre!', true);
-                } else {
-                    updatePopUp.init('Porażka', 'Wystąpił problem przy wypożyczeniu', false);
+                    updatePopUp.init('Porażka', failure, false);
                 }
                 return Promise.resolve();
             });
@@ -74,7 +63,7 @@ class YourGames {
     generateBodyRow(rentedGame) {
         let content = '';
         const { GAME } = rentedGame;
-        content += `<tr class="table_row">
+        content += `<tr class="table_row" data-${config.gameIDAtr}="${GAME.GAME_ID}">
                         <td class="table_cell">${GAME.TITLE}</td>
                         <td class="table_cell">${helpers.getDate(rentedGame.RENT_DATE)}</td>
                         <td class="table_cell">${helpers.getDate(rentedGame.RETURN_DATE)}</td>
@@ -82,9 +71,9 @@ class YourGames {
                         <td class="table_cell">`;
 
         if (!rentedGame.Returned) {
-            content += `<a href="#" class="table_link ${config.returnGame}" data-${config.gameIDAtr}="${GAME.GAME_ID}">Zwróć</a>`;
+            content += `<a href="#" class="table_link ${config.returnGame}">Zwróć</a>`;
         } else if (GAME.AVAILABILITY) {
-            content += `<a href="#" data-${config.gameIDAtr}="${GAME.GAME_ID}" class="table_link ${config.rentGame}">Wypożycz</a>`;
+            content += `<a href="#"  class="table_link ${config.rentGame}">Wypożycz</a>`;
         } else {
             content += '<span class="table_link table_link--disabled">Wypożycz</span>';
         }

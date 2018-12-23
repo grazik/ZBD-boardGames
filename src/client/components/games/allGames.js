@@ -30,14 +30,15 @@ class AllGames {
 
     onTBodyClick(e) {
         e.preventDefault();
-        const { target } = e;
+        const { target } = e,
+            parentRow = target.parentNode.parentNode;
         if (target.classList.contains(config.rentGame)) {
-            this.rentGameEvent(target);
+            this.rentGameEvent(parentRow);
         }
     }
 
-    rentGameEvent(target) {
-        const gameID = target.dataset[config.gameIDAtr];
+    rentGameEvent(parentRow) {
+        const gameID = parentRow.dataset[config.gameIDAtr];
         helpers.rentGame(gameID)
             .then((result) => {
                 if (result) {
@@ -51,11 +52,11 @@ class AllGames {
                 if (filters.options[gamesConfig.availability].indexOf('0') + 1) {
                     return helpers.sendRequest('/api', queries.getGame(gameID))
                         .then((data) => {
-                            helpers.replaceChild(this.tBody, target.parentNode.parentNode, this.generateBodyRow(data.data.getGame), 'tbody');
+                            helpers.replaceChild(this.tBody, parentRow, this.generateBodyRow(data.data.getGame), 'tbody');
                             return Promise.resolve();
                         });
                 }
-                this.tBody.removeChild(target.parentNode.parentNode);
+                this.tBody.removeChild(parentRow);
                 return Promise.resolve();
             });
     }
@@ -69,7 +70,7 @@ class AllGames {
     generateBodyRow(game) {
         let content = '';
 
-        content += `<tr class="table_row">
+        content += `<tr class="table_row" data-${config.gameIDAtr}="${game.GAME_ID}" >
                             <td class="table_cell">${game.TITLE}</td>
                             <td class="table_cell">${game.CATEGORY.join(', ')}</td>
                             <td class="table_cell">${game.NUMBER_OF_PLAYERS}</td>
@@ -77,7 +78,7 @@ class AllGames {
                             <td class="table_cell">`;
 
         if (game.AVAILABILITY) {
-            content += `<a href="#" data-${config.gameIDAtr}="${game.GAME_ID}" class="table_link ${config.rentGame}">Wypożycz</a>`;
+            content += `<a href="#" class="table_link ${config.rentGame}">Wypożycz</a>`;
         } else {
             content += '<span class="table_link table_link--disabled">Wypożycz</span>';
         }
