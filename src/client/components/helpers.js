@@ -49,6 +49,12 @@ const helpers = {
             .then(data => data.data.rentGame)
             .catch(err => console.log(err));
     },
+
+    returnGame(gameID) {
+        return helpers.sendRequest('/api', queries.returnGame(gameID))
+            .then(data => data.data.returnGame)
+            .catch(err => console.log(err));
+    },
 };
 
 export default helpers;
