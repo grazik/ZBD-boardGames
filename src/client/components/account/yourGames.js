@@ -51,7 +51,7 @@ class YourGames {
                                     <td class="account-table_cell">${rentedGame.RETURN_DATE}</td>
                                     <td class="account-table_cell">${returned ? 'TAK' : 'NIE'}</td>
                                     <td class="account-table_cell">
-                                    ${returned ? '<a href="#" class="account-table_cell--link" data-action="rent">Wypożycz</a>' : '<a href="#" class="account-table_cell--link" data-action="return">Zwróć</a>'}
+                                    ${returned ? '<a href="#" class="account-table_link" data-action="rent">Wypożycz</a>' : '<a href="#" class="account-table_link" data-action="return">Zwróć</a>'}
                                     </td>
                                  </tr>`;
                 });

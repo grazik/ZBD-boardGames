@@ -1,5 +1,5 @@
 import config from '../indexConfig';
-import gamesSidePanel from './gamesSidePanel';
+import gamesSidePanel from './filters';
 import allGames from './allGames';
 
 class Games {

@@ -14,6 +14,13 @@ const getGameCategories = id => new Promise((resolve) => {
             console.log(error);
             resolve(results[0]);
         });
+    }),
+
+    rentGame = ({ clientID, gameID }) => new Promise((resolve) => {
+        pool.query(`SELECT RentGame('${clientID}', '${gameID}', null);`, (error, results) => {
+            console.log(error);
+            resolve(Object.values(results[0])[0]);
+        });
     });
 
 export default generateControllers(
@@ -23,6 +30,7 @@ export default generateControllers(
     },
     {
         getGameCategories,
-        getFilteredGames
+        getFilteredGames,
+        rentGame,
     },
 );

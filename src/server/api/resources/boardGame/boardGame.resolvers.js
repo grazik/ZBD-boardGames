@@ -5,6 +5,7 @@ const boardGameResolvers = {
         getGame: (_, { id }) => boardGameController.getOne(id),
         getGames: () => boardGameController.getAll(),
         getFilteredGames: (_, options) => boardGameController.getFilteredGames(options),
+        rentGame: (_, options) => boardGameController.rentGame(options),
     },
 
     BoardGame: {
