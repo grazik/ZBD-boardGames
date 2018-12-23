@@ -15,4 +15,5 @@ extend type Query {
     getGames: [BoardGame]!
     getFilteredGames(categories: String, availability: String, min: String, max: String): [BoardGame]!
     rentGame(clientID: ID!, gameID: ID!): Int!
+    returnGame(gameID: ID!): Int!
 }

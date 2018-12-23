@@ -38,6 +38,7 @@ const queries = {
                     GAME {
                         TITLE
                         AVAILABILITY
+                        GAME_ID
                     }
                 }
             }`,
@@ -122,6 +123,14 @@ const queries = {
             }`,
         };
     },
+
+    returnGame(gameID) {
+        return {
+            query: `{
+                returnGame(gameID: ${gameID})
+            }`,
+        };
+    }
 };
 
 export default queries;
