@@ -1,11 +1,11 @@
 type RentedGame {
     CLIENT: Client!
-    EMPLOYEE: Employee!
     GAME: BoardGame
     RENT_DATE: String!
     RETURN_DATE: String
+    Returned: Int!
 }
 
 extend type Query {
-    getRentedGames(Client_ID: ID, Employee_ID: ID, Game_ID: ID, Rent_date: String, Return_date: String): [RentedGame!]
+    getRentedGames(id: ID!): [RentedGame]!
 }
