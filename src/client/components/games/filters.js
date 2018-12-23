@@ -34,7 +34,7 @@ class Filters {
             max = this.options[gamesConfig.max].join(', ');
 
         helpers.sendRequest('/api', queries.getFilteredGames(categories, availability, min, max))
-            .then(data => allGames.appendTableBody(data.data.getFilteredGames))
+            .then(data => allGames.updateTableBody(data.data.getFilteredGames))
             .catch(err => console.log(err));
     }
 
