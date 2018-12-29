@@ -8,6 +8,7 @@ const { dbConfig } = config,
         password: dbConfig.password,
         database: dbConfig.database,
         connectionLimit: 4,
+        multipleStatements: true,
     });
 
 export default pool;
