@@ -1,9 +1,12 @@
 const config = {
     invisibleClass: 'invisible',
     mainContentClass: 'mainContent',
+    gameInfo: 'jsGameInfo',
     rentGame: 'jsRentGame',
     returnGame: 'jsReturnGame',
+    closeElement: 'jsClose',
     gameIDAtr: 'gameid',
+    overlayClass: 'overlay',
     accountPage: {
         dataClass: 'account-data',
         columnClass: 'account-data--column',
@@ -34,6 +37,42 @@ const config = {
         tableClass: 'table',
         tableBodyClass: 'table_body',
         tableHeaderClass: 'table_header',
+    },
+    infoOverlayConfig: {
+        listValues: [
+            {
+                label: 'Kategoria:',
+                key: 'CATEGORY',
+            },
+            {
+                label: 'Liczba graczy:',
+                key: 'NUMBER_OF_PLAYERS',
+            },
+            {
+                label: 'Czas gry:',
+                key: 'GAME_TIME',
+            },
+            {
+                label: 'Opłata:',
+                key: 'BAIL',
+            },
+        ],
+        stars: ['00', '10', '15', '20', '25', '30', '35', '40', '45', '50'],
+        starClass: 'star',
+        gameRating: 'gameRating',
+        yourRating: 'yourRating',
+        ratingConfig: [
+            {
+                label: 'Ocena',
+                id: 'gameRating',
+                isDisabled: true,
+            },
+            {
+                label: 'Twoja ocena',
+                id: 'yourRating',
+                isDisabled: false,
+            },
+        ],
     },
 };
 
