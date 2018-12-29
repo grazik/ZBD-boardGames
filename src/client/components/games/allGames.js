@@ -3,6 +3,7 @@ import queries from '../queries';
 import config from '../indexConfig';
 import updatePopUp from '../updatePopUp/updatePopUp';
 import filters from './filters';
+import { InfoOverlay } from '../infoOverlay/infoOverlay';
 
 const { gamesConfig, tableConfig } = config;
 
@@ -34,7 +35,15 @@ class AllGames {
             parentRow = target.parentNode.parentNode;
         if (target.classList.contains(config.rentGame)) {
             this.rentGameEvent(parentRow);
+        } else if (target.classList.contains(config.gameInfo)) {
+            this.createInfoOverlay(parentRow);
         }
+    }
+
+    createInfoOverlay(parentRow) {
+        const gameID = parentRow.dataset[config.gameIDAtr];
+        helpers.sendRequest('/api', queries.getGame(gameID))
+            .then(data => new InfoOverlay(data.data.getGame, this.updateRow, this, parentRow));
     }
 
     rentGameEvent(parentRow) {
@@ -49,16 +58,20 @@ class AllGames {
                 return Promise.resolve();
             })
             .then(() => {
-                if (filters.options[gamesConfig.availability].indexOf('0') + 1) {
-                    return helpers.sendRequest('/api', queries.getGame(gameID))
-                        .then((data) => {
-                            helpers.replaceChild(this.tBody, parentRow, this.generateBodyRow(data.data.getGame), 'tbody');
-                            return Promise.resolve();
-                        });
-                }
-                this.tBody.removeChild(parentRow);
-                return Promise.resolve();
+                this.updateRow(parentRow, gameID);
             });
+    }
+
+    updateRow(parentRow, gameID) {
+        if (filters.options[gamesConfig.availability].indexOf('0') + 1) {
+            return helpers.sendRequest('/api', queries.getGame(gameID))
+                .then((data) => {
+                    helpers.replaceChild(this.tBody, parentRow, this.generateBodyRow(data.data.getGame), 'tbody');
+                    return Promise.resolve();
+                });
+        }
+        this.tBody.removeChild(parentRow);
+        return Promise.resolve();
     }
 
 
@@ -71,7 +84,9 @@ class AllGames {
         let content = '';
 
         content += `<tr class="table_row" data-${config.gameIDAtr}="${game.GAME_ID}" >
-                            <td class="table_cell">${game.TITLE}</td>
+                            <td class="table_cell">
+                                <a href="#" class="table_link ${config.gameInfo}">${game.TITLE}</a>  
+                            </td>
                             <td class="table_cell">${game.CATEGORY.join(', ')}</td>
                             <td class="table_cell">${game.NUMBER_OF_PLAYERS}</td>
                             <td class="table_cell">${game.AVAILABILITY ? 'TAK' : 'NIE'}</td>
