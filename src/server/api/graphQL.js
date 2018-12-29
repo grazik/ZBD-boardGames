@@ -12,6 +12,7 @@ import { rentedGameType, rentedGameResolvers } from './resources/rentedGame/rent
 
 const typeDefs = [
         'type Query',
+        'type Mutation',
         addressType,
         userType,
         achievementType,

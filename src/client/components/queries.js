@@ -108,19 +108,25 @@ const queries = {
 
     getGame(gameID) {
         return {
-            query: `{
-                getGame(id: ${gameID}) {
+            query: `query getGame($username: ID!, $gameID: ID!){
+                getGame(id: $gameID, username: $username) {
                     GAME_ID
+                    GAME_TIME
                     TITLE
                     DESCRIPTION
                     NUMBER_OF_PLAYERS
                     AVAILABILITY
                     BAIL
+                    YOUR_OPINION
                     OPINION
                     CATEGORY
                     IMAGE   
                 }
             }`,
+            variables: {
+                username: '',
+                gameID,
+            },
         };
     },
 
@@ -129,6 +135,22 @@ const queries = {
             query: `{
                 returnGame(gameID: ${gameID})
             }`,
+        };
+    },
+
+    rateGame(gameID, rating) {
+        return {
+            query: `mutation rateGame($gameID: ID!, $username: ID!, $rating: Float!) {
+                        rateGame(gameID: $gameID, username: $username, rating: $rating){
+                            OPINION
+                            YOUR_OPINION
+                        }
+                    }`,
+            variables: {
+                username: '',
+                gameID,
+                rating,
+            },
         };
     }
 };
