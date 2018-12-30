@@ -43,7 +43,7 @@ class AllGames {
     createInfoOverlay(parentRow) {
         const gameID = parentRow.dataset[config.gameIDAtr];
         helpers.sendRequest('/api', queries.getGame(gameID))
-            .then(data => new InfoOverlay(data.data.getGame, this.updateRow, this, parentRow));
+            .then(data => new InfoOverlay(data.data.getGame, this.updateRow.bind(this, parentRow, gameID)));
     }
 
     rentGameEvent(parentRow) {

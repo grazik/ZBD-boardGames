@@ -7,15 +7,13 @@ import globals from '../globals';
 const { infoOverlayConfig } = config;
 
 class InfoOverlay {
-    constructor(game, updateRow, caller, parentRow) {
+    constructor(game, modifyCaller) {
         this.game = game;
         this.createOverlay();
         this.addEvents();
         this.selectRating(this.gameRating, this.game.OPINION);
         this.selectRating(this.yourRating, this.game.YOUR_OPINION);
-        this.updateRow = updateRow;
-        this.caller = caller;
-        this.objToModify = parentRow;
+        this.modifyCaller = modifyCaller;
         globals.body.appendChild(this.overlay);
     }
 
@@ -223,7 +221,7 @@ class InfoOverlay {
                     updatePopUp.init('Sukces', 'Udalo sie wypozyczyc gre', true);
                     this.buttons.replaceChild(newRentButton, this.rentButton);
                     this.rentButton = newRentButton;
-                    this.updateRow.call(this.caller, this.objToModify, this.game.GAME_ID);
+                    this.modifyCaller();
                 } else {
                     updatePopUp.init('Porażka', 'Wystapil blad przy wypożyczeniu gry', false);
                 }
