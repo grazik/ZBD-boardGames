@@ -9,6 +9,7 @@
     position: fixed;
     top: 200px;
     transform: translateX(-50%);
+    z-index: 250;
 
     &-header {
         align-items: center;

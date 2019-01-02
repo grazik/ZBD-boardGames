@@ -2,6 +2,7 @@ import helpers from '../helpers';
 import queries from '../queries';
 import config from '../indexConfig';
 import updatePopUp from '../updatePopUp/updatePopUp';
+import { InfoOverlay } from '../infoOverlay/infoOverlay';
 
 const { tableConfig } = config;
 
@@ -39,7 +40,15 @@ class YourGames {
             this.clickEvent(parentRow, helpers.rentGame, 'Udało się wypożyczyc grę', 'Wystąpił problem przy wypożyczeniu')
                 .then(() => this.updateTableBody())
                 .catch(err => console.log(err));
+        } else if (target.classList.contains(config.gameInfo)) {
+            this.createInfoOverlay(parentRow);
         }
+    }
+
+    createInfoOverlay(parentRow) {
+        const gameID = parentRow.dataset[config.gameIDAtr];
+        helpers.sendRequest('/api', queries.getGame(gameID))
+            .then(data => new InfoOverlay(data.data.getGame, this.updateTableBody.bind(this)));
     }
 
     clickEvent(parentRow, fn, success, failure) {
@@ -64,7 +73,9 @@ class YourGames {
         let content = '';
         const { GAME } = rentedGame;
         content += `<tr class="table_row" data-${config.gameIDAtr}="${GAME.GAME_ID}">
-                        <td class="table_cell">${GAME.TITLE}</td>
+                        <td class="table_cell">
+                            <a href="#" class="table_link ${config.gameInfo}">${GAME.TITLE}</a>  
+                        </td>
                         <td class="table_cell">${helpers.getDate(rentedGame.RENT_DATE)}</td>
                         <td class="table_cell">${helpers.getDate(rentedGame.RETURN_DATE)}</td>
                         <td class="table_cell">${rentedGame.Returned ? 'TAK' : 'NIE'}</td>

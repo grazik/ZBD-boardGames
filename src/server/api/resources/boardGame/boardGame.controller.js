@@ -16,6 +16,17 @@ const getGameCategories = id => new Promise((resolve) => {
         });
     }),
 
+    yourRating = (gameID, username) => new Promise((resolve) => {
+        pool.query(`SELECT Rating from UserRatings WHERE Client_ID = "${username}" and Game_ID = ${gameID};`, (error, results) => {
+            console.log(error);
+            if (results.length) {
+                resolve(results[0].Rating);
+            } else {
+                resolve(0);
+            }
+        });
+    }),
+
     rentGame = ({ clientID, gameID }) => new Promise((resolve) => {
         pool.query(`SELECT RentGame('${clientID}', '${gameID}', null);`, (error, results) => {
             console.log(error);
@@ -32,6 +43,18 @@ const getGameCategories = id => new Promise((resolve) => {
         } catch (e) {
             resolve(0);
         }
+    }),
+
+    rateGame = ({ gameID, username, rating }) => new Promise((resolve) => {
+        pool.query(`CALL RateGame("${username}", ${gameID}, ${rating}, @gameRating, @userRating);
+         select @gameRating, @userRating;`, (error, results) => {
+            const result = results[1][0];
+            console.log(error);
+            resolve({
+                OPINION: result['@gameRating'],
+                YOUR_OPINION: result['@userRating'],
+            });
+        });
     });
 
 export default generateControllers(
@@ -42,7 +65,9 @@ export default generateControllers(
     {
         getGameCategories,
         getFilteredGames,
+        yourRating,
         rentGame,
         returnGame,
+        rateGame,
     },
 );
