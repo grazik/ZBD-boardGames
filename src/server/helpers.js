@@ -48,6 +48,17 @@ const
                 template = Handlebars.compile(html);
             return template(context);
         },
+
+        concatProperties(properties, verb = 'WHERE') {
+            const arrayOfProperties = [];
+            Object.keys(properties)
+                .forEach((key) => {
+                    arrayOfProperties.push(`${key}="${decodeURIComponent(properties[key])}"`);
+                });
+            console.log(arrayOfProperties.join(', '));
+
+            return arrayOfProperties.length ? `${verb} ${arrayOfProperties.join(', ')}` : '';
+        },
     };
 
 export default helpers;
