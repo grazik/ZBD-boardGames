@@ -6,7 +6,19 @@ type Address {
     PHONE: String!
 }
 
+input updateAddress {
+    ADDRESS_ID: Int!
+    CITY: String
+    STREET: String
+    ZIP: String
+    PHONE: String
+}
+
 extend type Query {
     getAddress(id: ID!): Address!
     getAddresses: [Address]!
+}
+
+extend type Mutation {
+    updateAddress(id: ID, input: updateAddress): Address
 }
