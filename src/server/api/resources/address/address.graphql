@@ -20,5 +20,5 @@ extend type Query {
 }
 
 extend type Mutation {
-    updateAddress(id: ID, input: updateAddress): Address
+    updateAddress(input: updateAddress): Address
 }

@@ -6,12 +6,9 @@ const addressResolvers = {
         getAddresses: () => addressController.getAll(),
     },
     Mutation: {
-        updateAddress: (_, { id, input }) => addressController.updateOne(input)
-            .then(() => addressController.getOne(id))
-            .catch(() => {
-                console.log('s');
-                return null;
-            }),
+        updateAddress: (_, { input }) => addressController.updateOne(input)
+            .then(() => addressController.getOne(input.ADDRESS_ID))
+            .catch(() => null)
     },
 };
 
