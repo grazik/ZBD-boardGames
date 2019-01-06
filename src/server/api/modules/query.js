@@ -16,15 +16,13 @@ const getAll = table => () => new Promise((resolve) => {
     }),
 
     updateOne = ({ table, ID }) => properties => new Promise((resolve, reject) => {
-        console.log(properties);
-        console.log(helpers.concatProperties(properties));
-        const query = `UPDATE ${table.toUpperCase()} ${helpers.concatProperties(properties, 'SET')} WHERE ${ID} = "${properties[ID]}"`;
+        const { [ID]: id, ...toUpdate } = properties,
+            query = `UPDATE ${table.toUpperCase()} ${helpers.concatProperties(toUpdate, 'SET')} WHERE ${ID} = "${id}"`;
         pool.query(query, (error, results) => {
             if (error) {
                 console.log(error);
                 reject();
             } else {
-                console.log(results);
                 resolve();
             }
         });
