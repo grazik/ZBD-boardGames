@@ -22,7 +22,7 @@ const config = {
         menuClass: 'menu',
         menuLink: 'menu--link',
         dataDependency: 'dependency',
-        dependencyArray: ['account', 'games', 'contact', 'logout'],
+        dependencyArray: ['account', 'games', 'contact', 'logout', 'admin'],
     },
     gamesConfig: {
         gamesFiltersClass: 'games-filters',
