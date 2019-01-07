@@ -16,8 +16,13 @@ const userResolvers = {
             const { ADDRESS, ...userData } = input,
                 promiseArray = [];
 
-            promiseArray.push(userController.updateOne(userData));
-            promiseArray.push(addressController.updateOne(ADDRESS));
+            if (Object.keys(userData).length > 1) {
+                promiseArray.push(userController.updateOne(userData));
+            }
+
+            if (Object.keys(ADDRESS).length > 1) {
+                promiseArray.push(addressController.updateOne(ADDRESS));
+            }
 
             return Promise.all(promiseArray)
                 .then(() => userController.getOne(userData.USER_ID))
