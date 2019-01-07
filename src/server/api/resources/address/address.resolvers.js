@@ -5,6 +5,11 @@ const addressResolvers = {
         getAddress: (_, { id }) => addressController.getOne(id),
         getAddresses: () => addressController.getAll(),
     },
+    Mutation: {
+        updateAddress: (_, { input }) => addressController.updateOne(input)
+            .then(() => addressController.getOne(input.ADDRESS_ID))
+            .catch(() => null)
+    },
 };
 
 export default addressResolvers;

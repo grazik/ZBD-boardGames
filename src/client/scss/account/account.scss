@@ -49,36 +49,55 @@
 
     &-data {
         display: flex;
-        justify-content: space-around;
+        margin-bottom: 24px;
 
-        &--column {
+        &_column {
             display: flex;
             justify-content: space-around;
             flex-direction: column;
+
+            &:not(:first-child) {
+                flex: 1;
+            }
         }
 
-        &--label {
+        &_label {
             @include pxToRem(20);
             display: block;
             margin-bottom: 20px;
-            width: 100px;
+            margin-left: 30px;
+            width: 200px;
         }
 
-        &--input {
+        &_input {
             padding: 5px 10px;
             display: block;
             margin-bottom: 20px;
-            width: 300px;
-        }
 
-        &--edit {
-            @include transition(color);
-            color: $black;
+            &--invalid {
+                border: 1px solid $red_dark;
+            }
+        }
+    }
+
+    &-buttons {
+        text-align: right;
+
+        &_button {
+            background-color: $cyan_dark;
+            border: 1px solid $bodyColor;
+            border-radius: 12px;
+            color: $white;
+            display: inline-block;
+            padding: 10px 40px;
             text-decoration: none;
-            margin-bottom: 20px;
+            transform: translateZ(0);
 
             &:hover,
             &:focus {
+                @include transition(color, background-color, border-color);
+                background-color: $white;
+                border: 1px solid $cyan_dark;
                 color: $cyan_dark;
             }
         }

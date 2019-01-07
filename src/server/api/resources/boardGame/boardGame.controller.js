@@ -9,6 +9,7 @@ const getGameCategories = id => new Promise((resolve) => {
             resolve(categories);
         });
     }),
+
     getFilteredGames = ({ categories, availability, min, max }) => new Promise((resolve) => {
         pool.query(`call Filter("${categories}", "${availability}", ${min === '6+' ? 7 : min}, ${max === '6+' ? 100 : max});`, (error, results) => {
             console.log(error);

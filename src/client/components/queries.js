@@ -12,9 +12,11 @@ const queries = {
         return {
             query: `query getUserData($username: ID!) {
                 getUser(id: $username) {
+                    USER_ID
                     NAME
                     LAST_NAME
                     ADDRESS{
+                        ADDRESS_ID
                         CITY
                         ZIP
                         PHONE
@@ -152,7 +154,29 @@ const queries = {
                 rating,
             },
         };
-    }
+    },
+
+    updateUser(input) {
+        return {
+            query: `mutation updateUser($input: updateUser){
+                updateUser(input: $input){
+                    USER_ID
+                    NAME
+                    LAST_NAME
+                    ADDRESS {
+                        ADDRESS_ID
+                        ZIP
+                        STREET
+                        CITY
+                        PHONE
+                    }
+                }
+            }`,
+            variables: {
+                input,
+            },
+        };
+    },
 };
 
 export default queries;

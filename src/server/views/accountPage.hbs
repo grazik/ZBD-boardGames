@@ -1,3 +1,6 @@
+<script id="userInfo">
+    [{{{json getUser}}}];
+</script>
 <div class="account">
     <div class="account-sidePanel">
         <h3 class="section-header">Menu</h3>
@@ -20,39 +23,32 @@
         <div class="account-content">
             <h3 class="account-header">Twoje Dane:</h3>
             <div class="account-data">
-                <div class="account-data--column">
-                    <label class="account-data--label">Imie</label>
-                    <label class="account-data--label">Nazwisko</label>
+                <div class="account-data_column">
+                    <label class="account-data_label">Imie</label>
+                    <label class="account-data_label">Nazwisko</label>
                 </div>
-                <div class="account-data--column">
-                    <input type="text" class="account-data--input" value="{{NAME}}" disabled>
-                    <input type="text" class="account-data--input" value="{{LAST_NAME}}" disabled>
-                </div>
-                <div class="account-data--column">
-                    <a href="#" class="account-data--edit">Edytuj</a>
-                    <a href="#" class="account-data--edit">Edytuj</a>
+                <div class="account-data_column">
+                    <input type="text" class="account-data_input" name="NAME" value="{{getUser.NAME}}">
+                    <input type="text" class="account-data_input" name="LAST_NAME" value="{{getUser.LAST_NAME}}">
                 </div>
             </div>
             <h3 class="account-header">Twoj Adres:</h3>
             <div class="account-data">
-                <div class="account-data--column">
-                    <label class="account-data--label">Miasto</label>
-                    <label class="account-data--label">Ulica</label>
-                    <label class="account-data--label">ZIP</label>
-                    <label class="account-data--label">Telefon</label>
+                <div class="account-data_column">
+                    <label class="account-data_label">Miasto</label>
+                    <label class="account-data_label">Ulica</label>
+                    <label class="account-data_label">ZIP</label>
+                    <label class="account-data_label">Telefon</label>
                 </div>
-                <div class="account-data--column">
-                    <input type="text" class="account-data--input" value="{{ADDRESS.CITY}}" disabled>
-                    <input type="text" class="account-data--input" value="{{ADDRESS.STREET}}" disabled>
-                    <input type="text" class="account-data--input" value="{{ADDRESS.ZIP}}" disabled>
-                    <input type="text" class="account-data--input" value="{{ADDRESS.PHONE}}" disabled>
+                <div class="account-data_column">
+                    <input type="text" class="account-data_input" name="CITY" value="{{getUser.ADDRESS.CITY}}">
+                    <input type="text" class="account-data_input" name="STREET" value="{{getUser.ADDRESS.STREET}}">
+                    <input type="text" class="account-data_input" name="ZIP" value="{{getUser.ADDRESS.ZIP}}">
+                    <input type="text" class="account-data_input" name="PHONE" value="{{getUser.ADDRESS.PHONE}}">
                 </div>
-                <div class="account-data--column">
-                    <a href="#" class="account-data--edit">Edytuj</a>
-                    <a href="#" class="account-data--edit">Edytuj</a>
-                    <a href="#" class="account-data--edit">Edytuj</a>
-                    <a href="#" class="account-data--edit">Edytuj</a>
-                </div>
+            </div>
+            <div class="account-buttons">
+                <a href="#" class="account-buttons_button">Zapisz</a>
             </div>
         </div>
     </div>
