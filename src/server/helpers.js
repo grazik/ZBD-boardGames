@@ -3,8 +3,9 @@ import Handlebars from 'handlebars';
 import fetch from 'node-fetch';
 import config from './config/config';
 
-const
-    { serverConfig } = config,
+Handlebars.registerHelper('json', context => JSON.stringify(context));
+
+const { serverConfig } = config,
     helpers = {
         sendRequest(url, query) {
             return fetch(url, {
