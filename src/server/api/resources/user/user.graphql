@@ -6,8 +6,20 @@ type User {
     EMPLOYEE: Boolean!
 }
 
+input updateUser {
+    USER_ID: String!
+    NAME: String
+    LAST_NAME: String
+    ADDRESS: updateAddress
+    EMPLOYEE: Boolean
+}
+
 extend type Query {
     getUser(id: ID!): User!
     getUsers: [User]!
     validate(id: ID!, pwd: String!): User
+}
+
+extend type Mutation {
+    updateUser(input: updateUser): User
 }

@@ -3,8 +3,9 @@ import Handlebars from 'handlebars';
 import fetch from 'node-fetch';
 import config from './config/config';
 
-const
-    { serverConfig } = config,
+Handlebars.registerHelper('json', context => JSON.stringify(context));
+
+const { serverConfig } = config,
     helpers = {
         sendRequest(url, query) {
             return fetch(url, {
@@ -47,6 +48,17 @@ const
             const html = fs.readFileSync(source, 'utf-8'),
                 template = Handlebars.compile(html);
             return template(context);
+        },
+
+        concatProperties(properties, verb = 'WHERE') {
+            const arrayOfProperties = [];
+            Object.keys(properties)
+                .forEach((key) => {
+                    arrayOfProperties.push(`${key}="${decodeURIComponent(properties[key])}"`);
+                });
+            console.log(arrayOfProperties.join(', '));
+
+            return arrayOfProperties.length ? `${verb} ${arrayOfProperties.join(', ')}` : '';
         },
     };
 

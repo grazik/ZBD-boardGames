@@ -11,6 +11,24 @@ const userResolvers = {
             pwd,
         }),
     },
+    Mutation: {
+        updateUser: (_, { input }) => {
+            const { ADDRESS, ...userData } = input,
+                promiseArray = [];
+
+            if (Object.keys(userData).length > 1) {
+                promiseArray.push(userController.updateOne(userData));
+            }
+
+            if (Object.keys(ADDRESS).length > 1) {
+                promiseArray.push(addressController.updateOne(ADDRESS));
+            }
+
+            return Promise.all(promiseArray)
+                .then(() => userController.getOne(userData.USER_ID))
+                .catch(() => null);
+        },
+    },
     User: {
         ADDRESS(user) {
             return addressController.getOne(user.ADDRESS_ID);

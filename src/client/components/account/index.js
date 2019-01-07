@@ -14,9 +14,7 @@ class Account {
     }
 
     generateHTML() {
-        return `<div class="account">
-            <div class="account-mainContent"></div>
-        </div>`;
+        return '<div class="account"></div>';
     }
 }
 

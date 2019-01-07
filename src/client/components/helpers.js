@@ -55,6 +55,15 @@ const helpers = {
             .then(data => data.data.returnGame)
             .catch(err => console.log(err));
     },
+
+    validateInput(target, invalidClass) {
+        if (target.value === '') {
+            target.classList.add(invalidClass);
+            return false;
+        }
+        target.classList.remove(invalidClass);
+        return true;
+    },
 };
 
 export default helpers;

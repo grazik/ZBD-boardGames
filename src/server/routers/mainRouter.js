@@ -22,7 +22,7 @@ mainRouter.get(['/', '/index.html'], (req, res) => {
 
     promiseArray.push(helpers.sendRequest('http://localhost:3000/api', queries.getUser(res.locals.username))
         .then((data) => {
-            html = helpers.parseHbs(path.resolve(__dirname, '../views', 'accountPage.hbs'), data.data.getUser);
+            html = helpers.parseHbs(path.resolve(__dirname, '../views', 'accountPage.hbs'), data.data);
         }));
 
     promiseArray.push(JSDOM.fromFile(path.resolve(__dirname, '../../../dist/client/index.html'), {})
