@@ -3,15 +3,21 @@ import helpers from '../../helpers';
 
 const getAll = table => () => new Promise((resolve) => {
         pool.query(`SELECT * FROM ${table.toUpperCase()}`, (error, results) => {
-            console.log(error);
-            resolve(results);
+            if (error || !results) {
+                resolve(null);
+            } else {
+                resolve(results);
+            }
         });
     }),
 
     getOne = ({ table, ID }) => id => new Promise((resolve) => {
         pool.query(`SELECT * FROM ${table.toUpperCase()} WHERE ${ID} = "${id}"`, (error, results) => {
-            console.log(error);
-            resolve(results[0]);
+            if (error || !results || !results[0]) {
+                resolve(null);
+            } else {
+                resolve(results[0]);
+            }
         });
     }),
 
