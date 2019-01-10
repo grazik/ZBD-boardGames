@@ -5,6 +5,7 @@ const query = 'SELECT * FROM USERS',
     validateUser = ({ id, pwd }) => new Promise((resolve) => {
         pool.query(`${query} where USER_ID = "${id}" AND PASSWORD = "${pwd}";`, (error, results) => {
             if (error || !results || !results[0]) {
+                console.log(error);
                 resolve(null);
             } else {
                 resolve(results[0]);

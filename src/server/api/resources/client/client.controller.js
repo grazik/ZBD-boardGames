@@ -4,6 +4,7 @@ import pool from 'db';
 const getAchievements = id => new Promise((resolve) => {
     pool.query(`SELECT * from ACHIEVEMENTS where NAME in (SELECT ACHIEVEMENT_NAME from CLIENT_ACHIEVEMENTS where CLIENT_ID = "${id}");`, (error, results) => {
         if (error || !results) {
+            console.log(error);
             resolve(null);
         } else {
             resolve(results);

@@ -4,6 +4,7 @@ import helpers from '../../helpers';
 const getAll = table => () => new Promise((resolve) => {
         pool.query(`SELECT * FROM ${table.toUpperCase()}`, (error, results) => {
             if (error || !results) {
+                console.log(error);
                 resolve(null);
             } else {
                 resolve(results);
@@ -14,6 +15,9 @@ const getAll = table => () => new Promise((resolve) => {
     getOne = ({ table, ID }) => id => new Promise((resolve) => {
         pool.query(`SELECT * FROM ${table.toUpperCase()} WHERE ${ID} = "${id}"`, (error, results) => {
             if (error || !results || !results[0]) {
+                console.log(id);
+                console.log(error);
+                console.log(results);
                 resolve(null);
             } else {
                 resolve(results[0]);
@@ -24,7 +28,7 @@ const getAll = table => () => new Promise((resolve) => {
     updateOne = ({ table, ID }) => properties => new Promise((resolve, reject) => {
         const { [ID]: id, ...toUpdate } = properties,
             query = `UPDATE ${table.toUpperCase()} ${helpers.concatProperties(toUpdate, 'SET')} WHERE ${ID} = "${id}"`;
-        pool.query(query, (error, results) => {
+        pool.query(query, (error) => {
             if (error) {
                 console.log(error);
                 reject();
