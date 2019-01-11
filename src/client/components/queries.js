@@ -8,6 +8,45 @@ const queries = {
         };
     },
 
+    getAllUsers() {
+        return {
+            query: `{
+                getUsers {
+                    USER_ID
+                    NAME
+                    LAST_NAME
+                }
+            }`,
+        };
+    },
+
+    getAllShops() {
+        return {
+            query: `{
+                getShops {
+                    SHOP_ID
+                    ADDRESS {
+                        CITY
+                        STREET
+                        ZIP
+                        PHONE
+                    }
+                }
+            }`,
+        };
+    },
+
+    getAllAchievements() {
+        return {
+            query: `{
+                getAchievements {
+                    NAME
+                    CONDITION
+                }
+            }`,
+        };
+    },
+
     getUserData() {
         return {
             query: `query getUserData($username: ID!) {
