@@ -64,6 +64,11 @@ const helpers = {
         target.classList.remove(invalidClass);
         return true;
     },
+
+    getNestedValue(obj, keys) {
+        return keys.split('.')
+            .reduce((value, key) => value[key], obj);
+    },
 };
 
 export default helpers;
