@@ -26,7 +26,6 @@ const { menuConfig } = config,
 
 class Menu {
     init() {
-        ``;
         this.menu = document.getElementsByClassName(menuConfig.menuClass)[0];
         this.activeElement = this.menu.getElementsByClassName('active')[0];
         this.addEvents();
