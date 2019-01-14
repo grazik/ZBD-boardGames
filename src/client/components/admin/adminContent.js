@@ -6,9 +6,10 @@ const { adminConfig } = config;
 
 class AdminGames {
     init() {
-        helpers.sendRequest('/api', query.getAllShops())
-            .then(({ data }) => data.getShops)
-            .then(context => this.createHTML(context, adminConfig.shops))
+        helpers.sendRequest('/api', query.getAllGames())
+            .then(({ data }) => data.getGames)
+            .then(context => this.createHTML(context, adminConfig.games))
+            .then(() => this.addEvents())
             .catch(err => console.log(err));
     }
 
@@ -19,6 +20,13 @@ class AdminGames {
             .then(({ data }) => data[configObj.queryResult])
             .then(context => this.regenerateHTML(configObj, context))
             .catch(err => console.log(err));
+    }
+
+    addEvents() {
+        this.content.addEventListener('click', (e) => {
+            e.preventDefault();
+            console.log('sss');
+        });
     }
 
     regenerateHTML(configObject, context) {
@@ -122,7 +130,6 @@ class AdminGames {
         const row = document.createElement('tr'),
             actionElement = document.createElement('td');
 
-        console.log(rowData);
         actionElement.className = 'table_cell';
         row.className = 'table_row';
         row.dataset.id = rowData[configObject.id];
@@ -131,10 +138,7 @@ class AdminGames {
             row.innerHTML += `<td class="table_cell">${helpers.getNestedValue(rowData, columnName)}</td>`;
         });
 
-        row.appendChild(actionElement);
-        configObject.actions.forEach((action) => {
-            actionElement.innerHTML += `<span> ${action} </span>`;
-        });
+        row.appendChild(this.appendActions(configObject, rowData));
 
         return row;
     }
@@ -155,10 +159,60 @@ class AdminGames {
         this.tHead = thead;
         return thead;
     }
+
+    appendActions(configObject, data) {
+        const actionElement = document.createElement('td');
+        actionElement.className = 'table_cell';
+
+        switch (configObject.name) {
+            case 'games':
+            case 'users':
+                actionElement.appendChild(this.appendGamesActions(configObject, data));
+                break;
+            case 'achievements':
+            case 'shops':
+            case 'categories':
+                actionElement.appendChild(this.appendGenericActions(configObject));
+                break;
+            default:
+                console.log('dd');
+        }
+        return actionElement;
+    }
+
+    appendGamesActions(configObject, data) {
+        const actionList = document.createElement('ul');
+        actionList.className = 'table_list';
+
+        configObject.actions.forEach((action) => {
+            const listItem = document.createElement('li');
+            listItem.className = 'table_list-item';
+            if (action.name === 'delete' && !data[configObject.condition]) {
+                listItem.innerHTML += `<span class="table_link table_link--disabled">${action.label}</span>`;
+            } else {
+                listItem.innerHTML += `<a href="#" class="table_link ${config[action.actionClass]}">${action.label}</a>`;
+            }
+            actionList.appendChild(listItem);
+        });
+
+        return actionList;
+    }
+
+    appendGenericActions(configObject) {
+        const actionList = document.createElement('ul');
+        actionList.className = 'table_list';
+
+        configObject.actions.forEach((action) => {
+            const listItem = document.createElement('li');
+            listItem.className = 'table_list-item';
+            listItem.innerHTML += `<a href="#" class="table_link ${config[action.actionClass]}">${action.label}</a>`;
+            actionList.appendChild(listItem);
+        });
+
+        return actionList;
+    }
 }
 
-const adminGames = new AdminGames();
+const adminContent = new AdminGames();
 
-window.a = adminGames;
-
-export { adminGames };
+export { adminContent };
