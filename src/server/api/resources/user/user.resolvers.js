@@ -1,6 +1,7 @@
 import userController from './user.controller';
 import addressController from '../address/address.controller';
 import employeeController from '../employee/employee.controller';
+import rentedGameController from '../rentedGame/rentedGame.controller';
 
 const userResolvers = {
     Query: {
@@ -36,6 +37,10 @@ const userResolvers = {
         EMPLOYEE(user) {
             return employeeController.getOne(user.USER_ID)
                 .then(result => (!!result));
+        },
+        HasEverythingReturned({ USER_ID }) {
+            return rentedGameController.numberOfNotReturnedGames(USER_ID)
+                .then(result => !result);
         },
     },
 };

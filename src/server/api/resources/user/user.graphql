@@ -4,6 +4,7 @@ type User {
     LAST_NAME: String !
     ADDRESS: Address
     EMPLOYEE: Boolean!
+    HasEverythingReturned: Boolean
 }
 
 input updateUser {

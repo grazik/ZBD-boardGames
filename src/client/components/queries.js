@@ -13,6 +13,7 @@ const queries = {
             query: `{
                 getUsers {
                     USER_ID
+                    HasEverythingReturned
                     NAME
                     LAST_NAME
                 }
