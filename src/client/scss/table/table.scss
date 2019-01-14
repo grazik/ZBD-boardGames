@@ -60,4 +60,19 @@
             cursor: text;
         }
     }
+
+    &_list {
+        list-style: none;
+        margin: 0;
+        padding: 0
+    }
+
+    &_list-item {
+        display: inline-block;
+        list-style: none;
+
+        &:not(:last-of-type) {
+            margin-right: 24px;
+        }
+    }
 }
