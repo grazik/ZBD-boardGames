@@ -1,12 +1,12 @@
 import { adminSidePanel } from './adminSidePanel';
-import { adminGames } from './adminContent';
+import { adminContent } from './adminContent';
 import config from '../indexConfig';
 
 class AdminPanel {
     init() {
         this.appendHTML();
         adminSidePanel.init();
-        adminGames.init();
+        adminContent.init();
     }
 
     appendHTML() {
