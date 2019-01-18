@@ -13,7 +13,7 @@ const addGameCategories = (gameID, categoriesID) => {
                 return Promise.resolve(true);
             });
         }
-        return false;
+        return true;
     },
 
     deleteAllGameCategories = id => new Promise((resolve, reject) => {

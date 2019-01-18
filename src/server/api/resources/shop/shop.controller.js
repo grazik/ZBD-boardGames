@@ -48,7 +48,7 @@ const deleteOne = id => new Promise((resolve) => {
                 resolve(true);
             });
         }
-        resolve(false);
+        resolve(true);
     });
 
 export default generateControllers({

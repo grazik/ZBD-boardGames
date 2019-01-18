@@ -62,7 +62,29 @@ const getAll = table => () => new Promise((resolve) => {
         } else {
             resolve([]);
         }
+    }),
+
+    addNew = table => properties => new Promise((resolve, reject) => {
+        const propertyNames = [],
+            values = [];
+        Object.keys(properties)
+            .forEach((property) => {
+                propertyNames.push(`\`${property}\``);
+                values.push(`"${properties[property]}"`);
+            });
+        const query = `INSERT INTO ${table} (${propertyNames.join(',')}) VALUES (${values.join(',')});`;
+
+        pool.query(query, (error, results) => {
+            console.log(results, '~~~~~~~~~~~~~~', error);
+            if (error || !results) {
+                reject(error);
+            } else {
+                console.log(results.insertId);
+                resolve(results.insertId);
+            }
+        });
     });
+
 
 export default ({ table, ID }, overrides = {}) => {
     const defaults = {
@@ -83,6 +105,7 @@ export default ({ table, ID }, overrides = {}) => {
             table,
             ID,
         }),
+        addNew: addNew(table),
     };
 
     return { ...defaults, ...overrides };

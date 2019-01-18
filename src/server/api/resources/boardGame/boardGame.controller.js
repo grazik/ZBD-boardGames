@@ -79,9 +79,8 @@ const getGameCategories = id => new Promise((resolve) => {
     deleteOne = id => new Promise((resolve) => {
         const query = `DELETE FROM BOARD_GAMES WHERE GAME_ID = "${id}" AND AVAILABILITY = 1;`;
         pool.query(query, (error, results) => {
-            console.log(error, results);
+            console.log(error);
             if (error || !results.affectedRows) {
-                console.log(results);
                 resolve(false);
             } else {
                 resolve(true);

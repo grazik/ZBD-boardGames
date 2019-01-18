@@ -9,8 +9,9 @@ const shopResolvers = {
     },
     Mutation: {
         deleteShop: (_, { id, isEmployee }) => {
-            if (isEmployee) {
-                return shopController.deleteOne(id);
+            if (isEmployee && id !== 1) {
+                return shopController.clearEmployees(id)
+                    .then(() => shopController.deleteOne(id));
             }
             return false;
         },
@@ -36,6 +37,33 @@ const shopResolvers = {
                     });
             }
             return false;
+        },
+        addShop: (_, { input, isEmployee }) => {
+            if (isEmployee) {
+                let shopID;
+                const { ADDRESS, ...shopData } = input,
+                    { EMPLOYEES, shopProperties } = shopData;
+
+                return addressController.addNew(ADDRESS)
+                    .then(addressID => shopController.addNew({ ADDRESS_ID: addressID, ...shopProperties }))
+                    .then((id) => {
+                        shopID = id;
+                        return employeeController.getIDs(EMPLOYEES, 'EMPLOYEE_ID');
+                    })
+                    .then(arrayOfEmployees => shopController.addEmployees(shopID, arrayOfEmployees))
+                    .then((res) => {
+                        console.log(res);
+                        if (res) {
+                            return shopID;
+                        }
+                        return Promise.reject();
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return null;
+                    });
+            }
+            return null;
         },
     },
     Shop: {

@@ -18,7 +18,17 @@ const categoryResolvers = {
                 return categoryController.updateOne(input);
             }
             return false;
-        }
+        },
+        addCategory: (_, { input, isEmployee }) => {
+            if (isEmployee) {
+                return categoryController.addNew(input)
+                    .then(id => {
+                        console.log(id);
+                        return id;
+                    });
+            }
+            return null;
+        },
     },
 };
 

@@ -36,6 +36,29 @@ const boardGameResolvers = {
             }
             return false;
         },
+        addGame: (_, { input, isEmployee }) => {
+            if (isEmployee) {
+                const { CATEGORY, ...properties } = input;
+                let gameID;
+                return boardGameController.addNew(properties)
+                    .then((id) => {
+                        gameID = id;
+                        return categoryController.getIDs(CATEGORY, 'NAME');
+                    })
+                    .then(catIDs => categoryController.addGameCategories(gameID, catIDs))
+                    .then((result) => {
+                        if (result) {
+                            return gameID;
+                        }
+                        return null;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return Promise.resolve(false);
+                    });
+            }
+            return null;
+        },
     },
 
     BoardGame: {

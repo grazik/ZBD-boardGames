@@ -1,4 +1,5 @@
 import achievementController from './achievement.controller';
+import categoryController from '../category/category.controller';
 
 const achievementResolvers = {
     Query: {
@@ -19,6 +20,16 @@ const achievementResolvers = {
                     .catch(() => false);
             }
             return false;
+        },
+        addAchievement: (_, { input, isEmployee }) => {
+            if (isEmployee) {
+                return achievementController.addNew(input)
+                    .then(id => {
+                        console.log(id);
+                        return id;
+                    });
+            }
+            return null;
         },
     },
 };

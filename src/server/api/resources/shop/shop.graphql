@@ -10,7 +10,12 @@ type Shop {
 input updateShop {
     SHOP_ID: ID!
     EMPLOYEES: [String]!
-    ADDRESS: updateAddress
+    ADDRESS: updateAddress!
+}
+
+input newShop {
+    EMPLOYEES: [String]!
+    ADDRESS: newAddress!
 }
 
 extend type Query {
@@ -21,4 +26,5 @@ extend type Query {
 extend type Mutation {
     deleteShop(id: ID!, isEmployee: Boolean): Boolean!
     updateShop(input: updateShop!, isEmployee: Boolean): Boolean!
+    addShop(input: newShop!, isEmployee: Boolean): ID
 }

@@ -9,7 +9,7 @@ type BoardGame {
     YOUR_OPINION: Float
     CATEGORY: [String]!
     IMAGE: String
-    GAME_TIME: Int
+    GAME_TIME: Int!
 }
 
 input updateBoardGame {
@@ -20,7 +20,17 @@ input updateBoardGame {
     BAIL: String!
     CATEGORY: [String]!
     IMAGE: String
-    GAME_TIME: String
+    GAME_TIME: String!
+}
+
+input newBoardGame {
+    TITLE: String!
+    DESCRIPTION: String
+    NUMBER_OF_PLAYERS: String!
+    BAIL: String!
+    CATEGORY: [String]!
+    IMAGE: String
+    GAME_TIME: String!
 }
 
 extend type Query {
@@ -35,4 +45,5 @@ extend type Mutation {
     rateGame(gameID: ID!, username: ID!, rating: Float!): BoardGame!
     deleteGame(id: ID!, isEmployee: Boolean): Boolean!
     updateGame(input: updateBoardGame!, isEmployee: Boolean): Boolean!
+    addGame(input: newBoardGame!, isEmployee: Boolean): ID
 }

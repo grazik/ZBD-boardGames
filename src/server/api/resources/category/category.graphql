@@ -8,6 +8,10 @@ input updateCategory {
     NAME: String!
 }
 
+input newCategory {
+    NAME: String!
+}
+
 extend type Query {
     getCategory(id: ID!): Category
     getCategories: [Category]!
@@ -16,4 +20,5 @@ extend type Query {
 extend type Mutation {
     deleteCategory(id: ID!, isEmployee: Boolean): Boolean!
     updateCategory(input: updateCategory!, isEmployee: Boolean): Boolean!
+    addCategory(input: newCategory!, isEmployee:Boolean): ID
 }
