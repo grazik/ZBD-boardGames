@@ -1,0 +1,121 @@
+.configBox {
+    box-sizing: border-box;
+    background-color: $bodyColor;
+    border-radius: 10px;
+    border: 1px solid $cyan_dark;
+    left: 50%;
+    min-height: 200px;
+    padding: 0 30px 30px 30px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    &-inputs,
+    &-checkboxes {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &-inputSet {
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        box-sizing: border-box;
+        padding: 0 20px;
+
+        &--textareas {
+            width: 100%;
+        }
+
+        &--checkboxes {
+            align-items: center;
+            margin-bottom: 10px;
+            width: auto;
+        }
+    }
+
+    &-inputSet--required &-inputSet_label::after {
+        @include pxToRem(26);
+        color: $red_dark;
+        content: '*';
+        display: inline-block;
+        line-height: 20px;
+        margin-left: 5px;
+        vertical-align: top;
+    }
+
+    &-inputSet_label {
+        @include pxToRem(20);
+        display: block;
+        line-height: 20px;
+        margin-bottom: 6px;
+    }
+
+    &-inputSet_input {
+        display: block;
+        margin-bottom: 20px;
+        padding: 5px 10px;
+        resize: none;
+
+        &--checkbox {
+            display: none;
+        }
+    }
+
+    &-inputSet_checkmark {
+        background-color: $grey_light;
+        border: 1px solid $grey_dark;
+        display: block;
+        height: 20px;
+        margin: 6px auto 0 auto;
+        position: relative;
+        vertical-align: middle;
+        width: 20px;
+
+        &::before {
+            @include transition(background-color);
+            background-color: inherit;
+            content: '';
+            height: 14px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 14px;
+        }
+    }
+
+    &-inputSet_checkmark:hover::before,
+    &-inputSet_label:hover ~ &-inputSet_checkmark::before {
+        background-color: $grey;
+    }
+
+    &-inputSet_input:checked + &-inputSet_label > &-inputSet_checkmark::before {
+        @at-root input#{&} {
+            background-color: $cyan_dark;
+        }
+    }
+
+    &-buttons {
+        text-align: right;
+    }
+
+    &-button {
+        background-color: $cyan_dark;
+        border: 1px solid $bodyColor;
+        border-radius: 12px;
+        color: $white;
+        display: inline-block;
+        margin-left: 20px;
+        padding: 10px 20px;
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            @include transition(color, background-color, border-color);
+            background-color: $white;
+            border: 1px solid $cyan_dark;
+            color: $cyan_dark;
+        }
+    }
+}
