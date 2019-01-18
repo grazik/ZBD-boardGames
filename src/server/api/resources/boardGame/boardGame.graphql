@@ -4,7 +4,7 @@ type BoardGame {
     DESCRIPTION: String
     NUMBER_OF_PLAYERS: String!
     AVAILABILITY: Int!
-    BAIL: Float!
+    BAIL: Int!
     OPINION: Float
     YOUR_OPINION: Float
     CATEGORY: [String]!
@@ -12,8 +12,19 @@ type BoardGame {
     GAME_TIME: Int
 }
 
+input updateBoardGame {
+    GAME_ID: ID!
+    TITLE: String!
+    DESCRIPTION: String
+    NUMBER_OF_PLAYERS: String!
+    BAIL: String!
+    CATEGORY: [String]!
+    IMAGE: String
+    GAME_TIME: String
+}
+
 extend type Query {
-    getGame(id: ID!, username: ID!): BoardGame!
+    getGame(id: ID!, username: ID!): BoardGame
     getGames: [BoardGame]!
     getFilteredGames(categories: String, availability: String, min: String, max: String): [BoardGame]!
     rentGame(clientID: ID!, gameID: ID!): Int!
@@ -22,4 +33,6 @@ extend type Query {
 
 extend type Mutation {
     rateGame(gameID: ID!, username: ID!, rating: Float!): BoardGame!
+    deleteGame(id: ID!, isEmployee: Boolean): Boolean!
+    updateGame(input: updateBoardGame!, isEmployee: Boolean): Boolean!
 }

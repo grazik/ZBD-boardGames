@@ -1,4 +1,5 @@
 import boardGameController from './boardGame.controller';
+import categoryController from '../category/category.controller';
 
 const boardGameResolvers = {
     Query: {
@@ -11,6 +12,30 @@ const boardGameResolvers = {
 
     Mutation: {
         rateGame: (_, options) => boardGameController.rateGame(options),
+        deleteGame: (_, { id, isEmployee }) => {
+            if (isEmployee) {
+                return boardGameController.deleteOne(id);
+            }
+            return false;
+        },
+        updateGame: (_, { input, isEmployee }) => {
+            if (isEmployee) {
+                const { GAME_ID, CATEGORY, ...properties } = input;
+                return categoryController.deleteAllGameCategories(GAME_ID)
+                    .then(() => categoryController.getIDs(CATEGORY, 'NAME'))
+                    .then(catIDs => categoryController.addGameCategories(GAME_ID, catIDs))
+                    .then(() => boardGameController.updateOne({
+                        GAME_ID,
+                        ...properties,
+                    }))
+                    .then(() => true)
+                    .catch((err) => {
+                        console.log(err);
+                        return Promise.resolve(false);
+                    });
+            }
+            return false;
+        },
     },
 
     BoardGame: {
