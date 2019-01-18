@@ -409,6 +409,54 @@ const queries = {
             },
         };
     },
+
+    addCategory(input) {
+        return {
+            query: `mutation addCategory($input: newCategory!, $isEmployee: Boolean) {
+                addCategory(input: $input, isEmployee: $isEmployee)
+            }`,
+            variables: {
+                input,
+                isEmployee: '',
+            },
+        };
+    },
+
+    addAchievement(input) {
+        return {
+            query: `mutation addAchievement($input: newAchievement!, $isEmployee: Boolean) {
+                addAchievement(input: $input, isEmployee: $isEmployee)
+            }`,
+            variables: {
+                input,
+                isEmployee: '',
+            },
+        };
+    },
+
+    addGame(input) {
+        return {
+            query: `mutation addGame($input: newBoardGame!, $isEmployee: Boolean) {
+                addGame(input: $input, isEmployee: $isEmployee)
+            }`,
+            variables: {
+                input,
+                isEmployee: '',
+            },
+        };
+    },
+
+    addShop(input) {
+        return {
+            query: `mutation addShop($input: newShop!, $isEmployee: Boolean) {
+                addShop(input: $input, isEmployee: $isEmployee)
+            }`,
+            variables: {
+                input,
+                isEmployee: '',
+            },
+        };
+    },
 };
 
 export default queries;
