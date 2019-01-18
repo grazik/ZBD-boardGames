@@ -42,7 +42,6 @@ class AdminSidePanel {
         });
 
         this.activeElement = menu.getElementsByClassName('active')[0];
-        console.log(this.activeElement);
         this.menu.appendChild(menu);
     }
 

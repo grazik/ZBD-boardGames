@@ -1,32 +1,86 @@
 import helpers from '../helpers';
 import config from '../indexConfig';
-import query from '../queries';
+import queries from '../queries';
+import updatePopUp from '../updatePopUp/updatePopUp';
+import { ConfigOverlay } from '../configOverlay/configOverlay';
 
 const { adminConfig } = config;
 
 class AdminGames {
     init() {
-        helpers.sendRequest('/api', query.getAllGames())
+        helpers.sendRequest('/api', queries.getAllGames())
             .then(({ data }) => data.getGames)
             .then(context => this.createHTML(context, adminConfig.games))
-            .then(() => this.addEvents())
+            .then(() => this.addEvents(adminConfig.games))
             .catch(err => console.log(err));
     }
 
     reinit(configKey) {
-        const configObj = adminConfig[configKey];
+        const configObj = adminConfig[configKey],
+            { query, queryResult } = configObj.queries.getAll;
 
-        helpers.sendRequest('/api', query[configObj.query]())
-            .then(({ data }) => data[configObj.queryResult])
+        helpers.sendRequest('/api', queries[query]())
+            .then(({ data }) => data[queryResult])
             .then(context => this.regenerateHTML(configObj, context))
+            .then(() => this.addEvents(configObj))
             .catch(err => console.log(err));
     }
 
-    addEvents() {
-        this.content.addEventListener('click', (e) => {
-            e.preventDefault();
-            console.log('sss');
-        });
+    addEvents(configObj) {
+        this.tBody.addEventListener('click', e => this.onTbodyClick(e, configObj));
+        if (this.buttonsContaier) {
+            this.buttonsContaier.addEventListener('click', e => this.onButtonClick(e, configObj));
+        }
+    }
+
+    onButtonClick(e, { configOverlayKey }) {
+        e.preventDefault();
+        const { target } = e;
+        if (target.classList.contains(adminConfig.buttonClass)) {
+            const configOverlay = new ConfigOverlay('new', configOverlayKey);
+        }
+    }
+
+    onTbodyClick(e, configObj) {
+        e.preventDefault();
+
+        const { target } = e,
+            parentRow = target.parentNode.parentNode.parentNode.parentNode,
+            { id } = parentRow.dataset;
+        if (target.classList.contains(config.deleteElem)) {
+            this.deleteElem(configObj.queries.deleteOne, id)
+                .then(() => this.changeRow(parentRow, id, configObj));
+        } else if (target.classList.contains(config.editElem)) {
+            const configOverlay = new ConfigOverlay('edit', configObj.configOverlayKey, this.changeRow.bind(this, parentRow, id, configObj), id);
+        }
+    }
+
+    deleteElem({ query, queryResult }, id) {
+        return helpers.sendRequest('/api', queries[query](id))
+            .then(({ data }) => {
+                const result = data[queryResult];
+                if (result) {
+                    updatePopUp.init('Sukces', 'Udało się usunąć rekord', true);
+                } else {
+                    updatePopUp.init('Błąd', 'Wystąpił błąd przy próbie usunięcia', false);
+                }
+            })
+            .catch(err => console.log(err));
+    }
+
+    changeRow(row, id, configObject) {
+        const { query, queryResult } = configObject.queries.getOne;
+
+        return helpers.sendRequest('/api', queries[query](id))
+            .then(({ data }) => data[queryResult])
+            .then((result) => {
+                if (result) {
+                    const newRow = this.generateRow(result, configObject);
+                    this.tBody.replaceChild(newRow, row);
+                } else {
+                    row.remove();
+                }
+            });
     }
 
     regenerateHTML(configObject, context) {
@@ -127,6 +181,7 @@ class AdminGames {
     }
 
     generateRow(rowData, configObject) {
+        console.log(rowData);
         const row = document.createElement('tr'),
             actionElement = document.createElement('td');
 
@@ -164,23 +219,15 @@ class AdminGames {
         const actionElement = document.createElement('td');
         actionElement.className = 'table_cell';
 
-        switch (configObject.name) {
-            case 'games':
-            case 'users':
-                actionElement.appendChild(this.appendGamesActions(configObject, data));
-                break;
-            case 'achievements':
-            case 'shops':
-            case 'categories':
-                actionElement.appendChild(this.appendGenericActions(configObject));
-                break;
-            default:
-                console.log('dd');
+        if (configObject.condition) {
+            actionElement.appendChild(this.appendConditionalActions(configObject, data));
+        } else {
+            actionElement.appendChild(this.appendGenericActions(configObject));
         }
         return actionElement;
     }
 
-    appendGamesActions(configObject, data) {
+    appendConditionalActions(configObject, data) {
         const actionList = document.createElement('ul');
         actionList.className = 'table_list';
 
