@@ -33,11 +33,11 @@ class AdminGames {
         }
     }
 
-    onButtonClick(e, { configOverlayKey }) {
+    onButtonClick(e, configObj) {
         e.preventDefault();
         const { target } = e;
         if (target.classList.contains(adminConfig.buttonClass)) {
-            const configOverlay = new ConfigOverlay('new', configOverlayKey);
+            const configOverlay = new ConfigOverlay('new', configObj.configOverlayKey, this.changeRow.bind(this, null, configObj));
         }
     }
 
@@ -49,9 +49,9 @@ class AdminGames {
             { id } = parentRow.dataset;
         if (target.classList.contains(config.deleteElem)) {
             this.deleteElem(configObj.queries.deleteOne, id)
-                .then(() => this.changeRow(parentRow, id, configObj));
+                .then(() => this.changeRow(parentRow, configObj, id));
         } else if (target.classList.contains(config.editElem)) {
-            const configOverlay = new ConfigOverlay('edit', configObj.configOverlayKey, this.changeRow.bind(this, parentRow, id, configObj), id);
+            const configOverlay = new ConfigOverlay('edit', configObj.configOverlayKey, this.changeRow.bind(this, parentRow, configObj, id), id);
         }
     }
 
@@ -68,19 +68,30 @@ class AdminGames {
             .catch(err => console.log(err));
     }
 
-    changeRow(row, id, configObject) {
+    changeRow(row, configObject, id) {
         const { query, queryResult } = configObject.queries.getOne;
 
         return helpers.sendRequest('/api', queries[query](id))
             .then(({ data }) => data[queryResult])
             .then((result) => {
-                if (result) {
-                    const newRow = this.generateRow(result, configObject);
-                    this.tBody.replaceChild(newRow, row);
-                } else {
-                    row.remove();
+                if (row) {
+                    if (result) {
+                        this.regenerateRow(row, result, configObject);
+                    } else {
+                        row.remove();
+                    }
+                } else if (result) {
+                    this.tBody.appendChild(this.generateRow(result, configObject));
                 }
             });
+    }
+
+    regenerateRow(row, rowData, { order }) {
+        const rowCells = row.getElementsByTagName('td');
+
+        order.forEach((columnName, i) => {
+            rowCells[i].innerText = helpers.getNestedValue(rowData, columnName);
+        });
     }
 
     regenerateHTML(configObject, context) {
@@ -181,7 +192,6 @@ class AdminGames {
     }
 
     generateRow(rowData, configObject) {
-        console.log(rowData);
         const row = document.createElement('tr'),
             actionElement = document.createElement('td');
 
