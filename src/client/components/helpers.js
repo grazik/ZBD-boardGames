@@ -64,6 +64,24 @@ const helpers = {
         target.classList.remove(invalidClass);
         return true;
     },
+
+    getNestedValue(obj, keys) {
+        return keys.split('.')
+            .reduce((value, key) => value[key], obj);
+    },
+
+    createNestedObject(obj, key, value) {
+        const keys = key.split('.'),
+            lastKey = keys.pop(),
+            lastObject = keys.reduce((previousObject, currentKey) => {
+                if (!previousObject[currentKey]) {
+                    previousObject[currentKey] = {};
+                }
+                return previousObject[currentKey];
+            }, obj);
+        lastObject[lastKey] = value;
+        return obj;
+    },
 };
 
 export default helpers;

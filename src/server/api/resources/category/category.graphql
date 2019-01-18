@@ -3,7 +3,22 @@ type Category {
     NAME: String!
 }
 
+input updateCategory {
+    CATEGORY_ID: ID!
+    NAME: String!
+}
+
+input newCategory {
+    NAME: String!
+}
+
 extend type Query {
-    getCategory(id: ID!): Category!
+    getCategory(id: ID!): Category
     getCategories: [Category]!
+}
+
+extend type Mutation {
+    deleteCategory(id: ID!, isEmployee: Boolean): Boolean!
+    updateCategory(input: updateCategory!, isEmployee: Boolean): Boolean!
+    addCategory(input: newCategory!, isEmployee:Boolean): ID
 }

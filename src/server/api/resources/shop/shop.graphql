@@ -1,10 +1,30 @@
 type Shop {
     SHOP_ID: String!
     NUMBER_OF_EMPLOYEES: Int!
+    EMPLOYEES: [String]!
     ADDRESS: Address
+    isCentral: Boolean
+    isNotCentral: Boolean
+}
+
+input updateShop {
+    SHOP_ID: ID!
+    EMPLOYEES: [String]!
+    ADDRESS: updateAddress!
+}
+
+input newShop {
+    EMPLOYEES: [String]!
+    ADDRESS: newAddress!
 }
 
 extend type Query {
-    getShop(id: ID!): Shop!
+    getShop(id: ID!): Shop
     getShops: [Shop]!
+}
+
+extend type Mutation {
+    deleteShop(id: ID!, isEmployee: Boolean): Boolean!
+    updateShop(input: updateShop!, isEmployee: Boolean): Boolean!
+    addShop(input: newShop!, isEmployee: Boolean): ID
 }

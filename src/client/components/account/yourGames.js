@@ -118,9 +118,11 @@ class YourGames {
         let content = '';
         return helpers.sendRequest('/api', queries.getUserGames())
             .then((data) => {
-                data.data.getRentedGames.forEach((game) => {
-                    content += this.generateBodyRow(game);
-                });
+                if (data.data) {
+                    data.data.getRentedGames.forEach((game) => {
+                        content += this.generateBodyRow(game);
+                    });
+                }
                 this.tBody.innerHTML = content;
             });
     }

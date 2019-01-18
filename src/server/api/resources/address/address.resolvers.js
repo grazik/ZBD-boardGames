@@ -8,7 +8,8 @@ const addressResolvers = {
     Mutation: {
         updateAddress: (_, { input }) => addressController.updateOne(input)
             .then(() => addressController.getOne(input.ADDRESS_ID))
-            .catch(() => null)
+            .catch(() => null),
+        addAddress: (_, { input }) => addressController.addNew(input),
     },
 };
 

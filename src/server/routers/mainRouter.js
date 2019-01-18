@@ -33,6 +33,10 @@ mainRouter.get(['/', '/index.html'], (req, res) => {
     Promise.all(promiseArray)
         .then(() => {
             dom.window.document.getElementsByClassName('mainContent')[0].innerHTML = html;
+            if (res.locals.employee === 'false') {
+                dom.window.document.getElementsByClassName('menu-item--admin')[0].remove();
+            }
+
             res.send(dom.serialize());
         })
         .catch(err => console.log(err));

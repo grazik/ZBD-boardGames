@@ -3,30 +3,88 @@ import helpers from '../../helpers';
 
 const getAll = table => () => new Promise((resolve) => {
         pool.query(`SELECT * FROM ${table.toUpperCase()}`, (error, results) => {
-            console.log(error);
-            resolve(results);
+            if (error || !results) {
+                console.log(error);
+                resolve(null);
+            } else {
+                resolve(results);
+            }
         });
     }),
 
     getOne = ({ table, ID }) => id => new Promise((resolve) => {
         pool.query(`SELECT * FROM ${table.toUpperCase()} WHERE ${ID} = "${id}"`, (error, results) => {
-            console.log(error);
-            resolve(results[0]);
+            if (error || !results || !results[0]) {
+                console.log(error);
+                resolve(null);
+            } else {
+                resolve(results[0]);
+            }
         });
     }),
 
     updateOne = ({ table, ID }) => properties => new Promise((resolve, reject) => {
         const { [ID]: id, ...toUpdate } = properties,
             query = `UPDATE ${table.toUpperCase()} ${helpers.concatProperties(toUpdate, 'SET')} WHERE ${ID} = "${id}"`;
-        pool.query(query, (error, results) => {
+        pool.query(query, (error) => {
             if (error) {
                 console.log(error);
-                reject();
+                resolve(false);
             } else {
-                resolve();
+                resolve(true);
+            }
+        });
+    }),
+
+    deleteOne = ({ table, ID }) => id => new Promise((resolve, reject) => {
+        pool.query(`DELETE FROM ${table} where ${ID} = "${id}"`, (error, results) => {
+            if (error || !results.affectedRows) {
+                resolve(false);
+            } else {
+                resolve(true);
+            }
+        });
+    }),
+
+    getIDs = ({ table, ID }) => (arrayOfValues, property) => new Promise((resolve, reject) => {
+        const names = arrayOfValues.map(name => `"${name}"`),
+            query = `SELECT ${ID} from ${table} WHERE \`${property}\` in (${names.join(',')});`;
+        if (names.length) {
+            pool.query(query, (error, results) => {
+                if (error || !results) {
+                    console.log(error);
+                    reject(error);
+                } else {
+                    const IDs = results.map(result => result[ID]);
+                    resolve(IDs);
+                }
+            });
+        } else {
+            resolve([]);
+        }
+    }),
+
+    addNew = table => properties => new Promise((resolve, reject) => {
+        const propertyNames = [],
+            values = [];
+        Object.keys(properties)
+            .forEach((property) => {
+                propertyNames.push(`\`${property}\``);
+                values.push(`"${properties[property]}"`);
+            });
+        const query = `INSERT INTO ${table} (${propertyNames.join(',')}) VALUES (${values.join(',')});`;
+
+        pool.query(query, (error, results) => {
+            console.log(results, '~~~~~~~~~~~~~~', error);
+            if (error || !results) {
+                reject(error);
+            } else {
+                console.log(results.insertId);
+                resolve(results.insertId);
             }
         });
     });
+
 
 export default ({ table, ID }, overrides = {}) => {
     const defaults = {
@@ -39,6 +97,15 @@ export default ({ table, ID }, overrides = {}) => {
             table,
             ID,
         }),
+        deleteOne: deleteOne({
+            table,
+            ID,
+        }),
+        getIDs: getIDs({
+            table,
+            ID,
+        }),
+        addNew: addNew(table),
     };
 
     return { ...defaults, ...overrides };

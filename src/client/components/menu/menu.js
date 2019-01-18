@@ -3,6 +3,7 @@ import helpers from '../helpers';
 
 const { menuConfig } = config,
     importAccount = () => import('../account/index'),
+    importAdmin = () => import('../admin/index'),
     importGames = () => import('../games/index'),
     importLogout = () => import('../logout/index'),
     importContact = () => import('../contact/index'),
@@ -10,6 +11,8 @@ const { menuConfig } = config,
         switch (dependency) {
             case 'account':
                 return importAccount();
+            case 'admin':
+                return importAdmin();
             case 'logout':
                 return importLogout();
             case 'games':
@@ -23,7 +26,6 @@ const { menuConfig } = config,
 
 class Menu {
     init() {
-        ``;
         this.menu = document.getElementsByClassName(menuConfig.menuClass)[0];
         this.activeElement = this.menu.getElementsByClassName('active')[0];
         this.addEvents();
