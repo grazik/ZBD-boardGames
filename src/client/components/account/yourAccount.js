@@ -52,7 +52,7 @@ class YourAccount {
 
     saveButtonClicked() {
         if (this.invalid.size) {
-            updatePopUp.init('Błąd', 'Żadne pole nie może być puste', false);
+            updatePopUp.init('Błąd', 'Sprawdź poprawność danych', false);
         } else {
             const inputObject = this.generateInputObject();
             if (inputObject) {
@@ -138,7 +138,7 @@ class YourAccount {
         return content;
     }
 
-    generateDataSection(dataObj, { order, labels }) {
+    generateDataSection(dataObj, { order, labels, patterns }) {
         const data = document.createElement('div'),
             labelColumn = document.createElement('div'),
             inputColumn = document.createElement('div');
@@ -153,7 +153,11 @@ class YourAccount {
             input.type = 'text';
             input.className = accountPage.inputClass;
             input.name = dataKey;
-            input.value = dataObj[dataKey];
+            input.value = decodeURIComponent(dataObj[dataKey]);
+
+            if (patterns && patterns[dataKey]) {
+                input.dataset.pattern = patterns[dataKey];
+            }
 
             inputColumn.appendChild(input);
         });
