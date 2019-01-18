@@ -57,10 +57,21 @@ const helpers = {
     },
 
     validateInput(target, invalidClass) {
+        const { pattern } = target.dataset;
+
         if (target.value === '') {
             target.classList.add(invalidClass);
             return false;
         }
+
+        if (pattern) {
+            const regExp = new RegExp(pattern);
+            if (!regExp.test(target.value)) {
+                target.classList.add(invalidClass);
+                return false;
+            }
+        }
+        
         target.classList.remove(invalidClass);
         return true;
     },
