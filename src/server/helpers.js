@@ -40,6 +40,7 @@ const { serverConfig } = config,
                 const cookieDecoded = JSON.parse(Buffer.from(cookie, 'base64')
                     .toString('ascii'));
                 req.body.variables.username = cookieDecoded.username;
+                req.body.variables.isEmployee = (cookieDecoded.employee === 'true');
             }
             next();
         },
@@ -54,7 +55,11 @@ const { serverConfig } = config,
             const arrayOfProperties = [];
             Object.keys(properties)
                 .forEach((key) => {
-                    arrayOfProperties.push(`${key}="${decodeURIComponent(properties[key])}"`);
+                    if (properties[key] !== '') {
+                        arrayOfProperties.push(`\`${key}\`="${decodeURIComponent(properties[key])}"`);
+                    } else {
+                        arrayOfProperties.push(`\`${key}\`=null`);
+                    }
                 });
             console.log(arrayOfProperties.join(', '));
 
