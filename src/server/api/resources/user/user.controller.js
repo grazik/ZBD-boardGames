@@ -11,10 +11,38 @@ const query = 'SELECT * FROM USERS',
                 resolve(results[0]);
             }
         });
+    }),
+
+    deleteOne = id => new Promise((resolve) => {
+        const query = `DELETE FROM ADDRESSES WHERE ADDRESS_ID = (
+                    SELECT ADDRESS_ID 
+                    FROM USERS 
+                    WHERE USER_ID="${id}" 
+                    and USER_ID not in (
+                        SELECT DISTINCT RENTED_GAMES.USER_ID 
+                        FROM RENTED_GAMES
+                        where Returned = 0)
+                    );`;
+
+        pool.query(query, (error, results) => {
+            console.log(error, results);
+            if (error || !results.affectedRows) {
+                console.log(results);
+                resolve(false);
+            } else {
+                resolve(true);
+            }
+        });
     });
 
 
-export default generateControllers({
-    table: 'USERS',
-    ID: 'USER_ID',
-}, { validateUser });
+export default generateControllers(
+    {
+        table: 'USERS',
+        ID: 'USER_ID',
+    },
+    {
+        validateUser,
+        deleteOne,
+    },
+);

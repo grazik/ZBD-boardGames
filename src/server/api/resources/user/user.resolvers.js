@@ -29,6 +29,12 @@ const userResolvers = {
                 .then(() => userController.getOne(userData.USER_ID))
                 .catch(() => null);
         },
+        deleteUser: (_, { id, isEmployee }) => {
+            if (isEmployee) {
+                return userController.deleteOne(id);
+            }
+            return false;
+        },
     },
     User: {
         ADDRESS(user) {

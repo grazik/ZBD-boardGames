@@ -16,11 +16,12 @@ input updateUser {
 }
 
 extend type Query {
-    getUser(id: ID!): User!
+    getUser(id: ID!): User
     getUsers: [User]!
     validate(id: ID!, pwd: String!): User
 }
 
 extend type Mutation {
     updateUser(input: updateUser): User
+    deleteUser(id: ID!, isEmployee: Boolean): Boolean!
 }

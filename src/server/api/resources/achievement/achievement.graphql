@@ -1,10 +1,25 @@
 type Achievement {
+    ACHIEVEMENT_ID: ID!
     NAME: String!
     IMAGE: String
     CONDITION: Int!
+    DESCRIPTION: String
+}
+
+input updateAchievement {
+    ACHIEVEMENT_ID: ID!
+    NAME: String!
+    CONDITION: String!
+    IMAGE: String
+    DESCRIPTION: String
 }
 
 extend type Query {
-    getAchievement(id: ID!): Achievement!
+    getAchievement(id: ID!): Achievement
     getAchievements: [Achievement]!
+}
+
+extend type Mutation {
+    deleteAchievement(id: ID!, isEmployee: Boolean): Boolean!
+    updateAchievement(input: updateAchievement!, isEmployee: Boolean): Boolean
 }
