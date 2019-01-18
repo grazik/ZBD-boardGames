@@ -90,7 +90,7 @@ class AdminGames {
         const rowCells = row.getElementsByTagName('td');
 
         order.forEach((columnName, i) => {
-            rowCells[i].innerText = helpers.getNestedValue(rowData, columnName);
+            rowCells[i].innerText = decodeURIComponent(helpers.getNestedValue(rowData, columnName));
         });
     }
 
@@ -200,7 +200,7 @@ class AdminGames {
         row.dataset.id = rowData[configObject.id];
 
         configObject.order.forEach((columnName) => {
-            row.innerHTML += `<td class="table_cell">${helpers.getNestedValue(rowData, columnName)}</td>`;
+            row.innerHTML += `<td class="table_cell">${decodeURIComponent(helpers.getNestedValue(rowData, columnName))}</td>`;
         });
 
         row.appendChild(this.appendActions(configObject, rowData));

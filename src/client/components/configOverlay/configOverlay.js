@@ -29,6 +29,10 @@ class ConfigOverlay {
                 this.saveObject();
             }
         });
+
+        this.overlay.addEventListener('change', (e) => {
+            e.target.value = e.target.value.trim();
+        });
     }
 
     createObjectToSave() {
@@ -250,7 +254,7 @@ class ConfigOverlay {
         }
 
         labelObj.className = 'configBox-inputSet_label';
-        labelObj.innerText = label;
+        labelObj.innerText = decodeURIComponent(label);
         labelObj.htmlFor = name;
 
         if (type !== 'textarea') {
