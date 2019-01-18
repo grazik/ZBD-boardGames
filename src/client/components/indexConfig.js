@@ -40,6 +40,10 @@ const config = {
                 ZIP: 'ZIP',
                 PHONE: 'Telefon',
             },
+            patterns: {
+                PHONE: '^\\d{9}$',
+                ZIP: '^\\d{2}-\\d{3}$',
+            },
         },
     },
     menuConfig: {
@@ -345,7 +349,6 @@ const config = {
                     label: 'Miniaturka',
                     name: 'IMAGE',
                     required: false,
-                    pattern: '^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$',
                 },
             ],
             textAreas: [
@@ -450,7 +453,7 @@ const config = {
                 {
                     label: 'ZIP',
                     name: 'ADDRESS.ZIP',
-                    pattern: '^\\d{2}-\\d{3}',
+                    pattern: '^\\d{2}-\\d{3}$',
                     required: true,
                 },
             ],
