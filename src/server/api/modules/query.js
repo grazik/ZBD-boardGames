@@ -15,9 +15,7 @@ const getAll = table => () => new Promise((resolve) => {
     getOne = ({ table, ID }) => id => new Promise((resolve) => {
         pool.query(`SELECT * FROM ${table.toUpperCase()} WHERE ${ID} = "${id}"`, (error, results) => {
             if (error || !results || !results[0]) {
-                console.log(id);
                 console.log(error);
-                console.log(results);
                 resolve(null);
             } else {
                 resolve(results[0]);
@@ -31,11 +29,39 @@ const getAll = table => () => new Promise((resolve) => {
         pool.query(query, (error) => {
             if (error) {
                 console.log(error);
-                reject();
+                resolve(false);
             } else {
-                resolve();
+                resolve(true);
             }
         });
+    }),
+
+    deleteOne = ({ table, ID }) => id => new Promise((resolve, reject) => {
+        pool.query(`DELETE FROM ${table} where ${ID} = "${id}"`, (error, results) => {
+            if (error || !results.affectedRows) {
+                resolve(false);
+            } else {
+                resolve(true);
+            }
+        });
+    }),
+
+    getIDs = ({ table, ID }) => (arrayOfValues, property) => new Promise((resolve, reject) => {
+        const names = arrayOfValues.map(name => `"${name}"`),
+            query = `SELECT ${ID} from ${table} WHERE \`${property}\` in (${names.join(',')});`;
+        if (names.length) {
+            pool.query(query, (error, results) => {
+                if (error || !results) {
+                    console.log(error);
+                    reject(error);
+                } else {
+                    const IDs = results.map(result => result[ID]);
+                    resolve(IDs);
+                }
+            });
+        } else {
+            resolve([]);
+        }
     });
 
 export default ({ table, ID }, overrides = {}) => {
@@ -46,6 +72,14 @@ export default ({ table, ID }, overrides = {}) => {
             ID,
         }),
         updateOne: updateOne({
+            table,
+            ID,
+        }),
+        deleteOne: deleteOne({
+            table,
+            ID,
+        }),
+        getIDs: getIDs({
             table,
             ID,
         }),
