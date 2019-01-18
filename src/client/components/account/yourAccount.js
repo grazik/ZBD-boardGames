@@ -89,8 +89,8 @@ class YourAccount {
         let isSomethingChanged = false;
         names.forEach((name) => {
             const { oldValue, newValue } = this.inputs[name];
-            if (oldValue !== newValue) {
-                parentObj[name] = newValue;
+            if (decodeURIComponent(oldValue) !== decodeURIComponent(newValue)) {
+                parentObj[name] = encodeURIComponent(newValue);
                 isSomethingChanged = true;
             }
         });
