@@ -13,7 +13,6 @@ class ConfigOverlay {
         this.inputs = {};
         this.id = id;
         this.modifyCaller = modifyCaller;
-        this.invalid = new Set();
 
         this.createOverlay()
             .then(() => this.addEvents());
@@ -30,64 +29,96 @@ class ConfigOverlay {
                 this.saveObject();
             }
         });
-
-        this.overlay.addEventListener('change', (e) => {
-            console.log(e.target);
-        });
     }
 
     createObjectToSave() {
         const object = {},
-            { checkboxes } = this.settings;
+            { checkboxes } = this.settings,
 
-        object[this.settings.id] = this.id;
-        Object.keys(this.inputs)
-            .forEach((inputKey) => {
-                const { input, type } = this.inputs[inputKey];
+            invalid = Object.keys(this.inputs)
+                .some((inputKey) => {
+                    const { input, type } = this.inputs[inputKey];
 
-                if (type === 'checkbox') {
-                    const { fieldIndex } = input.dataset,
-                        { field } = checkboxes[fieldIndex];
-                    if (!object[field]) {
-                        object[field] = [];
+                    if (!input.validity.valid) {
+                        return true;
                     }
-                    if (input.checked) {
-                        object[field].push(input.name);
+
+                    if (type === 'checkbox') {
+                        const { fieldIndex } = input.dataset,
+                            { field } = checkboxes[fieldIndex];
+                        if (!object[field]) {
+                            object[field] = [];
+                        }
+                        if (input.checked) {
+                            object[field].push(input.name);
+                        }
+                    } else {
+                        helpers.createNestedObject(object, input.name, encodeURIComponent(input.value));
                     }
-                } else {
-                    helpers.createNestedObject(object, input.name, encodeURIComponent(input.value));
-                }
-            });
+
+                    return false;
+                });
+
+        if (invalid) {
+            return null;
+        }
+
         if (this.addressID) {
             object.ADDRESS.ADDRESS_ID = this.addressID;
+        }
+        if (this.type === 'edit') {
+            object[this.settings.id] = this.id;
         }
         return object;
     }
 
-    sendRequest(objectToSave, setOfQueries) {
+    sendRequest({ query, queryResult }, objectToSave, successText, failureText) {
+        return helpers.sendRequest('/api', queries[query](objectToSave))
+            .then(data => data.data[queryResult])
+            .then((results) => {
+                if (results) {
+                    updatePopUp.init('Sukces', successText, true);
+                } else {
+                    updatePopUp.init('Błąd', failureText, false);
+                }
+                return Promise.resolve(results);
+            });
+    }
+
+
+    request(objectToSave, setOfQueries) {
+        let successText,
+            failureText,
+            usedQuery;
         if (this.type === 'edit') {
-            const { query, queryResult } = setOfQueries.updateOne;
-            console.log(objectToSave);
-            return helpers.sendRequest('/api', queries[query](objectToSave))
-                .then((data) => {
-                    return data.data[queryResult];
-                })
-                .then((results) => {
-                    if (results) {
-                        updatePopUp.init('Sukces', 'zmiany zostały zapisane', true);
-                    } else {
-                        updatePopUp.init('Błąd', 'W czasie modyfikacji krotek wystąpił błąd', false);
-                    }
-                    return Promise.resolve();
-                });
+            successText = 'zmiany zostały zapisane';
+            failureText = 'W czasie modyfikacji krotek wystąpił błąd';
+            usedQuery = setOfQueries.updateOne;
+        } else {
+            successText = 'Dodano nową krotkę';
+            failureText = 'W czasie dodawania krotki wystąpił błąd';
+            usedQuery = setOfQueries.addNew;
         }
-        return Promise.resolve();
+
+        return this.sendRequest(usedQuery, objectToSave, successText, failureText);
     }
 
     saveObject() {
         const objectToSave = this.createObjectToSave();
-        this.sendRequest(objectToSave, this.settings.queries)
-            .then(this.modifyCaller);
+        if (objectToSave) {
+            this.request(objectToSave, this.settings.queries)
+                .then((results) => {
+                    if (this.type === 'new') {
+                        if (results) {
+                            this.modifyCaller(results);
+                        }
+                    } else {
+                        this.modifyCaller();
+                    }
+                });
+        } else {
+            updatePopUp.init('Błąd', 'Sprawdz poprawność danych', false);
+        }
     }
 
     closeOverlay() {
@@ -199,7 +230,7 @@ class ConfigOverlay {
         });
     }
 
-    generateInput({ label, name, required, type = 'text' }, tag, fieldIndex) {
+    generateInput({ label, name, required, type = 'text', pattern }, tag, fieldIndex) {
         const inputObj = document.createElement(tag),
             labelObj = document.createElement('label'),
             inputSet = document.createElement('div');
@@ -212,6 +243,11 @@ class ConfigOverlay {
         inputObj.placeholder = label;
         inputObj.id = name;
         inputObj.name = name;
+        inputObj.required = required;
+
+        if (pattern) {
+            inputObj.pattern = pattern;
+        }
 
         labelObj.className = 'configBox-inputSet_label';
         labelObj.innerText = label;

@@ -60,6 +60,10 @@
         &--checkbox {
             display: none;
         }
+
+        &:invalid {
+            border: 1px solid $red_dark;
+        }
     }
 
     &-inputSet_checkmark {
