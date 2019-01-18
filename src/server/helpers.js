@@ -61,7 +61,6 @@ const { serverConfig } = config,
                         arrayOfProperties.push(`\`${key}\`=null`);
                     }
                 });
-            console.log(arrayOfProperties.join(', '));
 
             return arrayOfProperties.length ? `${verb} ${arrayOfProperties.join(', ')}` : '';
         },
