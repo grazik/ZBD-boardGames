@@ -85,10 +85,10 @@ class AllGames {
 
         content += `<tr class="table_row" data-${config.gameIDAtr}="${game.GAME_ID}" >
                             <td class="table_cell">
-                                <a href="#" class="table_link ${config.gameInfo}">${game.TITLE}</a>  
+                                <a href="#" class="table_link ${config.gameInfo}"> ${decodeURIComponent(game.TITLE)}</a>  
                             </td>
-                            <td class="table_cell">${game.CATEGORY.join(', ')}</td>
-                            <td class="table_cell">${game.NUMBER_OF_PLAYERS}</td>
+                            <td class="table_cell">${decodeURIComponent(game.CATEGORY.join(', '))}</td>
+                            <td class="table_cell">${decodeURIComponent(game.NUMBER_OF_PLAYERS)}</td>
                             <td class="table_cell">${game.AVAILABILITY ? 'TAK' : 'NIE'}</td>
                             <td class="table_cell">`;
 
