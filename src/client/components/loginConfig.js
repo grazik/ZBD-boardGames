@@ -2,6 +2,7 @@ const config = {
     loginConfig: {
         formInputClass: 'content-form_input',
         formSignInClass: 'content-form_signIn',
+        createAccount: 'jsCreateAccount',
         loginUrl: '/login',
         contentClass: 'content',
         removingClass: 'removing',
