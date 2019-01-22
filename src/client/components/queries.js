@@ -457,6 +457,17 @@ const queries = {
             },
         };
     },
+
+    addUser(input) {
+        return {
+            query: `mutation addUser($input: newUser!) {
+                addUser(input: $input)
+            }`,
+            variables: {
+                input,
+            },
+        };
+    },
 };
 
 export default queries;

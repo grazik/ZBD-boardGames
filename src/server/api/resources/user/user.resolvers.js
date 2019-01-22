@@ -35,6 +35,15 @@ const userResolvers = {
             }
             return false;
         },
+        addUser: (_, { input }) => {
+            const { ADDRESS, ...userData } = input;
+            return addressController.addNew(ADDRESS)
+                .then(addressID => userController.addNew({ ADDRESS_ID: addressID, ...userData }))
+                .catch((err) => {
+                    console.log(err);
+                    return null;
+                });
+        },
     },
     User: {
         ADDRESS(user) {
