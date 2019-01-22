@@ -3,13 +3,15 @@ import config from '../loginConfig';
 import helpers from '../helpers';
 
 const { loginConfig } = config;
+import { ConfigOverlay } from '../configOverlay/configOverlay';
 
 class LoginPage {
     constructor() {
         this.content = document.getElementsByClassName(loginConfig.contentClass)[0];
         this.error = false;
         this.inputFields = [].slice.call(document.getElementsByClassName(loginConfig.formInputClass));
-        this.button = document.getElementsByClassName(loginConfig.formSignInClass)[0];
+        this.loginButton = document.getElementsByClassName(loginConfig.formSignInClass)[0];
+        this.signInButton = document.getElementsByClassName(loginConfig.createAccount)[0];
     }
 
     init() {
@@ -17,7 +19,7 @@ class LoginPage {
     }
 
     addEvents() {
-        this.button.addEventListener('click', (e) => {
+        this.loginButton.addEventListener('click', (e) => {
             e.preventDefault();
             if (this.validateInputs()) {
                 helpers.sendRequest(loginConfig.loginUrl, queries.validateUser(this.inputFields[0].value, btoa(this.inputFields[1].value)))
@@ -30,6 +32,11 @@ class LoginPage {
                     })
                     .catch(err => console.log(err));
             }
+        });
+
+        this.signInButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const configOverlay = new ConfigOverlay('new', 'user', null);
         });
     }
 
