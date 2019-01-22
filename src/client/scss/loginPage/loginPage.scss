@@ -15,9 +15,15 @@
     &-logo {
         background-size: contain;
         background-image: url("~images/logo/logo_plain.png");
+        background-repeat: no-repeat;
         height: 150px;
         margin: 0 auto;
         width: 150px;
+    }
+
+    &-button {
+        margin-top: 10px;
+        text-align: right;
     }
 
     &-form_input {
@@ -48,6 +54,18 @@
         &:focus {
             background-color: $white;
             border-color: $cyan_dark;
+            color: $cyan_dark;
+        }
+    }
+
+    &-link {
+        @include transition(color);
+        color: $cyan;
+        font-weight: 800;
+        text-align: right;
+
+        &:hover,
+        &:focus {
             color: $cyan_dark;
         }
     }
