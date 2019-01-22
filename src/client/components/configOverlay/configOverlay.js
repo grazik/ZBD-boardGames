@@ -57,7 +57,11 @@ class ConfigOverlay {
                             object[field].push(input.name);
                         }
                     } else {
-                        helpers.createNestedObject(object, input.name, encodeURIComponent(input.value));
+                        if (inputKey === 'PASSWORD') {
+                            helpers.createNestedObject(object, input.name, btoa(input.value));
+                        } else {
+                            helpers.createNestedObject(object, input.name, encodeURIComponent(input.value));
+                        }
                     }
 
                     return false;
@@ -113,7 +117,7 @@ class ConfigOverlay {
             this.request(objectToSave, this.settings.queries)
                 .then((results) => {
                     if (this.type === 'new') {
-                        if (results) {
+                        if (results && this.modifyCaller) {
                             this.modifyCaller(results);
                         }
                     } else {
