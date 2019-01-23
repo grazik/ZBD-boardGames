@@ -65,6 +65,8 @@ const config = {
         tableClass: 'table',
         tableBodyClass: 'table_body',
         tableHeaderClass: 'table_header',
+        rowClass: 'table_row',
+        cellClass: 'table_cell',
     },
     infoOverlayConfig: {
         listValues: [
@@ -508,6 +510,11 @@ const config = {
                 },
             },
         },
+    },
+    contactConfig: {
+        headline: 'Kontakt:',
+        columnNames: ['Miasto', 'Ulica', 'Telefon', 'ZIP', 'Liczba pracowników'],
+        order: ['ADDRESS.CITY', 'ADDRESS.STREET', 'ADDRESS.PHONE', 'ADDRESS.ZIP', 'NUMBER_OF_EMPLOYEES'],
     },
 };
 
