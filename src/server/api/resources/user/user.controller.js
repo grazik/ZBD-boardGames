@@ -33,6 +33,18 @@ const query = 'SELECT * FROM USERS',
                 resolve(true);
             }
         });
+    }),
+
+    getAchievements = id => new Promise((resolve) => {
+        pool.query(`SELECT * from ACHIEVEMENTS where ACHIEVEMENT_ID in (SELECT ACHIEVEMENT_ID from USER_ACHIEVEMENTS where USER_ID = "${id}");`, (error, results) => {
+            console.log(results);
+            if (error || !results) {
+                console.log(error);
+                resolve(null);
+            } else {
+                resolve(results);
+            }
+        });
     });
 
 
@@ -44,5 +56,6 @@ export default generateControllers(
     {
         validateUser,
         deleteOne,
+        getAchievements,
     },
 );

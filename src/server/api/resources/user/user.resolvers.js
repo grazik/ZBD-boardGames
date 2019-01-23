@@ -11,6 +11,7 @@ const userResolvers = {
             id,
             pwd,
         }),
+        getUserAchievements: (_, { id }) => userController.getAchievements(id),
     },
     Mutation: {
         updateUser: (_, { input }) => {
