@@ -508,6 +508,61 @@ const config = {
                 },
             },
         },
+        user: {
+            id: 'USER_ID',
+            headline: 'Załóż konto',
+            inputs: [
+                {
+                    label: 'Login',
+                    name: 'USER_ID',
+                    required: true,
+                },
+                {
+                    label: 'Imię',
+                    name: 'NAME',
+                    required: true,
+                },
+                {
+                    label: 'Nazwisko',
+                    name: 'LAST_NAME',
+                    required: true,
+                },
+                {
+                    label: 'Hasło',
+                    name: 'PASSWORD',
+                    type: 'password',
+                    required: true,
+                },
+                {
+                    label: 'Miasto',
+                    name: 'ADDRESS.CITY',
+                    required: true,
+                },
+                {
+                    label: 'Ulica',
+                    name: 'ADDRESS.STREET',
+                    required: true,
+                },
+                {
+                    label: 'Telefon',
+                    name: 'ADDRESS.PHONE',
+                    pattern: '^\\d{9}$',
+                    required: true,
+                },
+                {
+                    label: 'ZIP',
+                    name: 'ADDRESS.ZIP',
+                    pattern: '^\\d{2}-\\d{3}$',
+                    required: true,
+                },
+            ],
+            queries: {
+                addNew: {
+                    query: 'addUser',
+                    queryResult: 'addUser',
+                },
+            },
+        },
     },
 };
 

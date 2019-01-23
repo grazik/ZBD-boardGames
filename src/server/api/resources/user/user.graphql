@@ -15,6 +15,14 @@ input updateUser {
     EMPLOYEE: Boolean
 }
 
+input newUser{
+    USER_ID: String!
+    NAME: String!
+    LAST_NAME: String!
+    PASSWORD: String!,
+    ADDRESS: newAddress!
+}
+
 extend type Query {
     getUser(id: ID!): User
     getUsers: [User]!
@@ -24,4 +32,5 @@ extend type Query {
 extend type Mutation {
     updateUser(input: updateUser): User
     deleteUser(id: ID!, isEmployee: Boolean): Boolean!
+    addUser(input: newUser!): ID
 }
