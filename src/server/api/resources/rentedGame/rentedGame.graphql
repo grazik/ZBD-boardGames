@@ -1,5 +1,5 @@
 type RentedGame {
-    CLIENT: Client!
+    USER: User!
     GAME: BoardGame
     RENT_DATE: String!
     RETURN_DATE: String

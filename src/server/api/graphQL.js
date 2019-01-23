@@ -7,7 +7,6 @@ import { shopType, shopResolvers } from './resources/shop/shop.router';
 import { employeeType, employeeResolvers } from './resources/employee/employee.router';
 import { boardGameType, boardGameResolvers } from './resources/boardGame/boardGame.router';
 import { categoryType, categoryResolvers } from './resources/category/category.router';
-import { clientType, clientResolvers } from './resources/client/client.router';
 import { rentedGameType, rentedGameResolvers } from './resources/rentedGame/rentedGame.router';
 
 const typeDefs = [
@@ -20,7 +19,6 @@ const typeDefs = [
         employeeType,
         boardGameType,
         categoryType,
-        clientType,
         rentedGameType,
     ],
 
@@ -33,7 +31,6 @@ const typeDefs = [
         employeeResolvers,
         boardGameResolvers,
         categoryResolvers,
-        clientResolvers,
         rentedGameResolvers,
     ),
 

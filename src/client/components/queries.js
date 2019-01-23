@@ -195,6 +195,19 @@ const queries = {
         };
     },
 
+    getUserAchievements() {
+        return {
+            query: `query getUserAchievements($username: ID!){
+                getUserAchievements(id:$username) {
+                    NAME
+                }
+            }`,
+            variables: {
+                username: '',
+            },
+        };
+    },
+
     getCategories() {
         return {
             query: `{

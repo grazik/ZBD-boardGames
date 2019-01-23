@@ -27,6 +27,7 @@ extend type Query {
     getUser(id: ID!): User
     getUsers: [User]!
     validate(id: ID!, pwd: String!): User
+    getUserAchievements(id: ID!): [Achievement]!
 }
 
 extend type Mutation {

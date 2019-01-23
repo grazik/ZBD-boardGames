@@ -1,5 +1,5 @@
 import rentedGameController from './rentedGame.controller';
-import clientController from '../client/client.controller';
+import userController from '../user/user.controller';
 import boardGameController from '../boardGame/boardGame.controller';
 
 const rentedGameResolvers = {
@@ -7,8 +7,8 @@ const rentedGameResolvers = {
         getRentedGames: (_, { id }) => rentedGameController.getGames(id),
     },
     RentedGame: {
-        CLIENT(rentedGame) {
-            return clientController.getOne(rentedGame.CLIENT_ID);
+        USER(rentedGame) {
+            return userController.getOne(rentedGame.CLIENT_ID);
         },
         GAME(rentedGame) {
             return boardGameController.getOne(rentedGame.GAME_ID);
