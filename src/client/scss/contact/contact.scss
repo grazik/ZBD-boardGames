@@ -1,0 +1,15 @@
+.contact {
+    &-mainContent {
+        background-color: $white;
+        border: 1px solid $cyan_dark;
+        border-radius: 6px;
+        box-sizing: border-box;
+        padding-bottom: 24px;
+    }
+
+    &-content {
+        box-sizing: border-box;
+        margin: 0 auto;
+        padding: 0 48px;
+    }
+}

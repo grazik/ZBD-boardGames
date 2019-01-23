@@ -1,7 +1,18 @@
 import generateControllers from 'server/api/modules/query';
 import pool from 'db';
 
-const deleteOne = id => new Promise((resolve) => {
+const getAll = () => new Promise((resolve) => {
+        pool.query('SELECT * FROM SHOPS where isCentral = 0;', (error, results) => {
+            if (error || !results) {
+                console.log(error);
+                resolve(null);
+            } else {
+                resolve(results);
+            }
+        });
+    }),
+
+    deleteOne = id => new Promise((resolve) => {
         const query = `DELETE FROM ADDRESSES WHERE ADDRESS_ID = (SELECT ADDRESS_ID FROM SHOPS WHERE SHOP_ID = "${id}")`;
         pool.query(query, (error, results) => {
             console.log(error, results);
@@ -58,5 +69,6 @@ export default generateControllers({
     deleteOne,
     getEmployees,
     clearEmployees,
-    addEmployees
+    addEmployees,
+    getAll,
 });
