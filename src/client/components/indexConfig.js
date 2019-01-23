@@ -404,14 +404,14 @@ const config = {
                     label: 'Miniaturka',
                     name: 'IMAGE',
                     pattern: '^[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$',
-                    required: false,
+                    required: true,
                 },
             ],
             textAreas: [
                 {
                     label: 'Opis',
                     name: 'DESCRIPTION',
-                    required: false,
+                    required: true,
                     type: 'textarea',
                 },
             ],
