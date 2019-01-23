@@ -103,6 +103,31 @@
         }
     }
 
+    &-achievementBox {
+        margin-bottom: 30px;
+        
+        &_content {
+            display: flex;
+            margin-bottom: 12px;
+        }
+
+        &_image {
+            background-size: contain;
+            background-repeat: no-repeat;
+            margin-right: 30px;
+            max-width: 75px;
+        }
+
+        &--grey &_image {
+            filter: grayscale(100%);
+        }
+
+        &_image img {
+            visibility: hidden;
+            width: 100%;
+        }
+    }
+
     &-header {
         @include pxToRem(24);
         color: $cyan_dark;
